@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function showInput(){
+            let n=prompt("과일을 선택하세요\n1.사과 2.바나나 3.블루베리 4.포도 5.키위");
+            
+            let img = document.querySelector("img");
+    
+            //else~if문으로 처리 
+            if(n==1){
+                img.src="../../images/fruit/apple.png";
+            }else if(n==2){
+                img.src="../../images/fruit/banana.png";
+            }else if(n==3){
+                img.src="../../images/fruit/blueberry.png";
+            }else if(n==4){
+                img.src="../../images/fruit/grape.png";
+            }else if(n==5){
+                img.src="../../images/fruit/kiwi.png";
+            }else{
+                alert("1부터 5사이의 과일만 선택하세요");
+            } 
+
+        }
+    </script>
+</head>
+<body>
+    <button onclick="showInput()"> 프롬프트 띄우기 </button>
+
+    <!-- 처음엔 과일 선택하지 않은 시점이므로, 이미지를 존재만 시키자
+            즉 src는 비워두자 -->
+    <img>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

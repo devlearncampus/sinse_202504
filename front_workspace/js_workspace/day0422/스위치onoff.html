@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let flag=false; //삼항연산자가 이 논리값에 의해 on, off 반환을 결정하므로, 
+                    //이 값을 변수로 둠
+
+        //문서내의 스위치 이미지의 src 값을 기존것과 반대의 이미지로 교체
+        function onoff(){  
+            flag = !flag;          
+            let img = document.querySelector("img");
+            let light=(flag)? "on":"off";
+            img.src="../../images/light/switch_"+ light +".png";
+        }
+    </script>
+</head>
+<body>
+    
+    <img src="../../images/light/switch_off.png" onclick="onoff()">
+
+</body>
+</html>

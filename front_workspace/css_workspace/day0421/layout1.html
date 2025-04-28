@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width: 600px;
+            height: 500px;
+            margin: auto;
+        }
+        #header{
+            background-color: aquamarine;
+        }
+        #aside{
+            background-color: rgb(97, 198, 164);
+            float:left; /*normal position 에서 벗어남*/
+            width: 100px;
+            height: 400px;
+        }
+        #section{
+            background-color: rgb(57, 128, 104);
+            width: 500px;
+            height: 400px;
+            float:left; /*block 요소를 float 시키면 서로 배척하는 성질이
+            사라짐, 주의- 인라인으로 변하는 것은 아니다..왜? 만약 float인해 
+            인라인으로 변할 경우 width, height가 적용이 않되어야 한다..
+            하지만, block은 float 시키면 width,height,margin,padding 다 가능*/
+        }
+        #footer{
+            background-color: rgb(30, 82, 65);
+            height: 50px;
+            clear:both; /*left or right 로 float되어 있는 요소로 인하여 
+            공간이 비어 있는 상황에 대해, 해당 공간을 강제 인식시키는 속성
+            따라서 이 속성을 적용하면, float된 공간을 인식해서, 파고 들어가는
+            것을 방지해줌*/
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="container">
+        <div id="header">header</div>
+        <div id="wrapper">
+            <div id="aside">aside</div>
+            <div id="section">section</div>
+        <div id="footer">footer</div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+

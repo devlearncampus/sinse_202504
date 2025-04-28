@@ -1,0 +1,23 @@
+<script>
+    /*
+    1) 판단 대상이 단일한 조건일 때는 if문 단독 
+    2) 판단 대상이 2가지만으로 분류될때는 if~else, 삼항연산자(제한적)
+    3) 판단 대상이 다중적일때는 else~if문을 쓴다 
+    */
+    let n=prompt("당신의 점수를 입력하세요");
+
+    if(n>=90){
+        document.write("A학점");
+    }else if(n>=80){
+        document.write("B학점");
+    }else if(n>=70){
+        document.write("C학점");
+    }else if(n>=60){
+        document.write("D학점");
+    }else if(n<60){
+        document.write("F학점");
+    }
+</script>
+
+
+

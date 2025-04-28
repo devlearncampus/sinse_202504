@@ -1,0 +1,222 @@
+<script>
+    /*5번 문제*/
+    /*
+    for(let i=1;i<=10;i++){
+        document.write("☆");
+    }
+    */
+   //8번문제 
+   /*
+   for(let i=1;i<=96;i++){
+        document.write("★"); 
+
+        if(i%10==0){//10번 마다, 10으로 나누어떨어질때
+            document.write("<br>");
+        }
+   }
+    */
+   //9번 문제 
+   /*
+   for(let i=1;i<=24;i++){
+       document.write("☆"); 
+        if(i%4==0){//5번째 마다..
+            document.write("★<br>");
+        }
+   }
+    */
+   //10번 문제 
+   //반복문에서 중요한 것은 횟수이다!!!(내용에는 관심 꺼라)
+   //반복문을 구조를 작성한 후 내용을 보는 것임 
+   /*
+   for(let i=1;i<=10;i++){
+        //템플릿 문자열 표기(쌍따옴표 대신 백틱으로 감싸고 
+        //변수를 대상으로 ${} 감싸면 된다.)
+        document.write(`${i}회반복<br>`);
+   }
+   */
+    //11번
+   /*
+   for(let i=2;i<=10; i+=2){
+        document.write(`${i}회반복<br>`);
+   } 
+   */
+   //12 번 문제 
+   /*
+   for(let i=1;i<=10;i++){
+        /*
+        if(i%2 != 0){ //홀수인 경우
+            document.write(`${i}<br>`);
+        }else{ //짝수인 경우
+            document.write("짝수 <br>");
+        }
+        */
+       //삼항연산자에게 짝수 여부를 묻자
+       //let str = (i%2==0)? "짝수":i;
+       //document.write(str+"<br>");
+   //}  
+    //13번 
+    /*
+    for(let i=1;i<=10;i++){
+        /*
+        if(i%3==0){
+            document.write("★<br>");
+        }else{
+            document.write(i+"회반복 <br>");
+        }
+        */
+       /*
+       let str = (i%3==0)?  "★<br>": i+"회반복 <br>";
+       document.write(str);
+    }
+    */
+   //14번 문제 
+   /*
+   for(let i=1;i<=19;i++){
+        document.write("☆");
+        if(i%5==0){
+            document.write("★");//무조건이 아닌 5번째 만
+        }
+   }
+   */
+  //15번 문제 
+  /*
+  for(let i=105;i<=108;i++){
+    document.write(i+"<br>");
+  }
+    */
+  //16번 문제 
+  /*
+  for(let i=1;i<=9;i++){
+        document.write(`3*${i}=${3*i}<br>`);
+  } 
+*/
+//17번 문제 
+/*
+let dan = prompt("원하시는 단을 입력하세요");
+dan=parseInt(dan); //문자열화된 숫자문자를 "7" 를 실제 정수로
+
+for(let i=1;i<=9;i++){
+    document.write(`${dan}*${i}=${dan*i} <br>`);
+}
+*/
+//18번 문제, (우리에게 중요한건 반복 횟수)
+/*
+for(let i=1;i<=9;i++){
+    document.write(`${3*i}=3*${i} <br>`);
+}
+*/
+//19번 문제 
+/*
+for(let i=1; i<=8;i++){
+    document.write(`${i}*${i+1} = ${i*(i+1)} <br>`);
+}
+*/
+
+//20번 문제 
+/*
+for(let i=9; i>=1; i--){
+    document.write(`5 * ${i} = ${5*i} <br>`);
+}
+*/
+//21번 문제 
+//for(let i=1;i<=10;i++){
+    /*
+    if(i<=5){//5번째 까지는..흰별
+        document.write("☆");
+    }else{
+        document.write("★");
+    }
+    */
+    //let star = (i<=5)?  "☆": "★";
+    //document.write(star);
+//}
+//23번 문제 
+/*
+for(let i=유저가결정; i>0; 감소식){
+}
+*/
+/*
+let n=parseInt(prompt("원하시는 수를입력하세요"));
+
+for(let i=n; i>0;i--){
+    document.write(`${i} `);
+}
+*/
+
+//24번   시작값=입력값-1 ,  끝값=입력값+1 까지, i++
+/*
+let n = parseInt(prompt("원하시는 입력값 넣어주세요"));
+
+for(let i=n-1; i<=n+1; i++){
+    document.write(`${i} `);
+}
+*/
+//25번 문제, 출력대상과 횟수를 유저에게 맡기자 
+/*
+let str = prompt("출력할 문자를 입력하세요");
+let n = parseInt(prompt("몇 번 반복할까요?"));
+
+for(let i=1;i<=n;i++){
+    document.write(str);
+}
+*/
+
+//26번 문제
+/*
+let n=parseInt(prompt("개행시킬 번째를 입력하세요")); 
+
+for(let i=1;i<=100;i++){
+    document.write("☆");
+
+    if(i%n==0){
+        document.write("<br>");
+    }
+}
+*/
+//27번 문제 
+//어떤 수 n을 입력받으면 반복횟수는 그 nxn 만큼 반복하면 되고, 
+//줄바꿈은 n번째에서 실행 
+/*
+let n = parseInt(prompt("원하는 숫자를 입력하세요"));
+
+for(let i=1;i<=n*n;i++){
+    document.write("★");
+    //제어문의 브레이스를 생략하면, 그 제어문의 영향력은  바로 아래 한줄까지만...
+    if(i%n==0)  
+        document.write("<br>");
+}
+*/
+//25번 문제 
+/*
+for(let i=1;i<=5;i++){
+    for(let a=1;a<=4;a++){
+        document.write("☆");
+    }
+    document.write("★<br>");
+}
+*/
+//33번 문제 
+/*
+for(let i=1;i<=9;i++){
+    for(let a=2;a<=9;a++){
+        document.write(`${a}*1=${a}*1   `);
+    }
+    document.write("<br>");
+}
+*/
+for(let a=1;a<=9;a++){
+    for(let i=2;i<=9;i++){
+        document.write(`${i}*${a}=${i*a}   `);
+    }
+    document.write("<br>");
+}
+
+</script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let n=0; //프로그램과 생을 같이함...
+
+        //전역변수의 값을 1씩 증가시키기
+        function countUp(){
+            n=n+1; //n++, n+=1
+            console.log("카운트 = "+n);
+        }
+        //전역변수의 값을 1씩 감소시키기 
+        function countDown(){
+            n--; //n=n-1, n-=1
+            console.log("카운트 = "+n);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="countUp()">증가</button>    
+    <button onclick="countDown()">감소</button>    
+
+</body>
+</html>
+
+
+
+

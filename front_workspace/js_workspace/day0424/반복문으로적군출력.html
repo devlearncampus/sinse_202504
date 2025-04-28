@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #stage{
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+            background-image: url(../../images/gallerxy/bg.png);
+            position: relative;/*자식에 포지션 속성이 지정되었으므로...*/
+        }
+    </style>
+    <script>
+        let bgY=0;//배경 이미지의 y축 포지션의 값을 누적할 전역변수
+
+        //stage에 적용된 css의 중, background-position의 y값을 증가
+        function bgEffect(){
+            let stage = document.getElementById("stage");
+            bgY+=2; //2씩 누적
+            stage.style.backgroundPosition=`0px ${bgY}px`;            
+        }
+
+        function createEnemy(){
+            for(let a=1;a<=5;a++){
+                for(let i=1;i<=20;i++){
+                    //먼저 이미지 1개를 생성해본다 
+                    let img=document.createElement("img"); // <img> 작성 효과와 동일
+                    img.src="../../images/gallerxy/enemy2.png";
+                    img.style.position="absolute";//부모를 기준으로 한 위치속성
+                    img.style.left=150+ (i*30)+"px"; //x축은 호수와 비례하여 증가
+                    img.style.top=200+ (a*30)+"px";//y축은 층수와 비례하여 증가
+
+                    //이미지를 stage에 부착하자 !! (stage의 자식요소로 추가하자)
+                    let stage = document.getElementById("stage");
+                    stage.appendChild(img);
+                }
+            }
+        }
+
+        //프로그램이 가동되자 마자 하고싶은 초기화 작업을 위한 함수
+        function init(){
+            //적군 생성
+            createEnemy();
+
+            //개발자 대신 자동으로 지정된 함수를, 지정한 시간 간격으로 호출해 주는
+            //타이머 함수 호출하자 
+            setInterval("bgEffect()", 10); // 1/1000 초까지 표현 가능
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="stage"></div>    
+</body>
+</html>

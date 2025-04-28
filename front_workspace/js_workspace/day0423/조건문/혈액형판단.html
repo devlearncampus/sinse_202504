@@ -1,0 +1,17 @@
+<script>
+    let bd=prompt("본인의 혈액형을 입력하세요 A,B, O, AB");
+    let msg;
+
+    if(bd == "A"){ //
+        msg="세심하다"; //A 
+    }else if(bd =="B"){
+        msg="고집이 쎄다"; //B
+    }else if(bd=="O"){
+       msg="오지랖쟁이"; //O 
+    }else if(bd=="AB"){
+        msg="결정장애"; //AB 
+    }else{ //조건문에서 처리하지 않는 그 외의 모든 경우를 통틀어...
+        msg="존재하지 않은 혈액형 입니다";
+    }
+    document.write(msg);
+</script>

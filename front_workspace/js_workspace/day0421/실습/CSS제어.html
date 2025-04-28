@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 900px;
+            height: 800px;
+            background-color: yellow;
+            margin: auto;
+        }
+        #aside{
+            width: 200px;
+            height: 800px;
+            background-color: aqua;
+            float:left;
+        }
+        #section{
+            width: 700px;
+            height: 800px;
+            background-color: bisque;
+            float:left;
+        }
+        #pic{
+            width: 300px;
+            height: 350px;
+            opacity: 1; /*투명0~1 불투명*/
+            transform: rotate(50deg);
+        }
+        img{
+            width: 45px;
+        }
+    </style>
+    <script>
+        //현재 여전사 이미지에 적용된 css 중 width의 크기를 높여보자
+        function setWidth(){
+            //문서내의 pic이라 불리는 요소의 스타일중에서 width를 증가 
+            document.querySelector("#pic").style.width="500px"; 
+        }
+
+        function setOpacity(){
+            //문서내의 pic 요소의 스타일중 투명도 값을 증가시켜본다..(1에 가까울 수록 증가할수록 불투명해진다..)
+            document.querySelector("#pic").style.opacity=0.3;
+        }
+
+        function setRotate(){
+            //문서내의 pic이라는 요소에 적용된 스타일중에서 rotate값을 증가시켜본다(시계방향으로 회전..)
+            document.querySelector("#pic").style.transform="rotate(10deg)";
+        }
+    </script>
+</head>
+<body>
+   
+    <div id="wrapper">
+        <div id="aside">
+            <div>
+                너비 조절
+                    <img src="../../../images/warior/plus_btn.png" alt="" onclick="setWidth()">
+                    <img src="../../../images/warior/minus_btn.png" alt="">
+            </div>
+            <div>
+                높이 조절
+                    <img src="../../../images/warior/plus_btn.png" alt="">
+                    <img src="../../../images/warior/minus_btn.png" alt="">
+            </div>
+            <div>
+                투명도 조절
+                    <img src="../../../images/warior/plus_btn.png" >
+
+                    <img src="../../../images/warior/minus_btn.png" onclick="setOpacity()">
+            </div>
+            <div>
+                각도 조절
+                    <img src="../../../images/warior/plus_btn.png" onclick="setRotate()">
+
+                    <img src="../../../images/warior/minus_btn.png" alt="">
+            </div>
+
+        </div>
+
+        <div id="section">
+            <img id="pic" src="../../../images/warior/warior.png" alt="">            
+        </div>
+    </div> 
+
+</body>
+</html>
+
+
+

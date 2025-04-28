@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 800px;
+            height: 600px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;/*이 속성은 자식인 img 때문에 부여한 것임...*/
+            overflow: hidden;/*영역을 벗어나는 경우, 않보이게 처리*/
+        }
+        /*주의 !! 포지션을 적용할때는 부모를 포함하여, 조상 중 단 하나라도 
+        relative or absolute가 적용되어 있어야 위치가 깨지지 않음..
+        굳이 이유를 알자면, 포지션에는 기준이 있어야 하기 때문에...
+        */
+
+        img{
+            position: absolute; /*부모인 wrapper를 기준으로 위치시킬꺼야!!! */
+            left:-100px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- css 의 포지션 속성 중, 자신의 부모 요소를 기준으로 한 위치 속성을
+     절대위치 즉 absolute 라 한다 -->
+    <div id="wrapper">
+        <img src="../../images/tenor.gif" style="width:50px">
+    </div>    
+
+</body>
+</html>
+
+
+
+

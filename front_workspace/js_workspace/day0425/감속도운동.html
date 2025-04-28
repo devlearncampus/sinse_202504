@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let div;
+        let a=0.1; //비율 계수(기울기), 숫자가 높을수록 투박함
+        let targetX=800; //도달할 목표 지점 
+
+        //물체의 움직임 함수
+        function move(){
+            //나의위치 = 기존나의위치 + a*(목표지점 - 나의위치);
+            //남은거리의 정해진 비율로 증가할꺼야!!! = 야금 야금 다가갈꺼야
+            div.style.left =parseInt(div.style.left)+ a*(targetX - parseInt(div.style.left))+"px";
+            setTimeout("move()", 30);
+        }
+        
+        //물체 생성용 함수
+        function createRect(){
+            div=document.createElement("div");
+            div.style.background="red";
+            div.style.width=50+"px";
+            div.style.height=50+"px";
+            div.style.position="absolute";
+            div.style.left=0+"px";
+            div.style.top=100+"px";
+            document.body.appendChild(div);
+        }
+
+        /*프로그램 가동과 동시에 물체 생성 , 온로드 시점에*/
+        addEventListener("load", function(){
+            createRect(); //물체 생성 함수 호출 
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
+
+
+
+

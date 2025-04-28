@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 900px;
+            height: 600px;
+            background-color: yellow;
+            margin: auto;
+            
+        }
+        #aside{
+            width: 200px;
+            height: 100%;
+            background-color: aqua;
+            float:left;
+        }
+        #section{
+            width: 700px;
+            height: 100%;
+            background-color: rgb(16, 197, 197);
+            float:left;
+            position: relative; /*자식 때문에...*/
+            background-image: url(../../images/plane/bg.jpg);
+        }
+        button{
+            width: 50px;
+            height: 40px;
+            background-color: aquamarine;
+            border-radius: 10px;
+        }
+        #hero{
+            width: 40px;
+            position: absolute; /*자신의 부모 요소를 기준으로 배치하겠음*/
+            left:200px;
+            top:100px;
+        }
+    </style>
+    <script>
+        let x=200; /*시작 값을 200 한 이유? css 에서 200으로 지정했으므로*/
+        let y=100;  
+
+        //문서내의 hero 요소에 적용된 css 중 position 값 중 left값을 증가시키자
+        function moveLeft(){
+            let hero = document.querySelector("#hero");
+            x-=10;
+            hero.style.left= x+"px";
+        }
+        function moveRight(){
+            let hero = document.querySelector("#hero");
+            x+=10;
+            hero.style.left= x+"px";
+        }
+
+        function moveDown(){
+            let hero = document.querySelector("#hero");
+            y+=10;
+            hero.style.top=y+"px";
+        }
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="aside">
+            <table>
+                <tr>
+                    <td></td>
+                    <td><button>UP</button></td>
+                    <td></td>    
+                </tr>
+                <tr>
+                    <td><button onClick="moveLeft()">Left</button></td>
+                    <td><button onclick="moveDown()">Down</button></td>
+                    <td><button onClick="moveRight()">Right</button></td>    
+                </tr>
+            </table>
+        </div>
+        <div id="section">
+            <img id="hero" src="../../images/plane/plane.png" alt="">
+        </div>
+    </div>
+
+</body>
+</html>
+

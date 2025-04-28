@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function init(){
+            let box=document.getElementById("box");
+            box.innerText="민진호";
+        }
+    </script>
+    
+</head>
+<body onLoad="init()">
+    <div id="box"></div>    
+
+    <button ondblclick="alert()" onMouseOver="alert('올렸어?')" onMouseOut="alert('내려놓았어?')">저를 클릭하세요</button>
+
+    <!-- option 사이의 텍스트는 유저가 보게되는 디자인적 텍스트에 불과하며
+     실제 서버에 전송할 데이터는 value 속성에 넣어야 함 -->
+    <select onchange="alert('다른 것으로 바꿨어?')">
+        <option value="google.com">google</option>
+        <option value="naver.com">naver</option>
+        <option value="daum.net">daum</option>
+    </select>
+    <!-- 주의) 오해없기!! 
+        onChange 이벤트 핸들러는 기존의 값이 바뀌는 상황을 잡아내는 이벤트
+        핸들러이기 때문에 꼭 select박스에만 사용할 수 있는게 아님 
+    -->
+    <input type="text" onchange="alert('다른 값을 넣었네?')">
+
+</body>
+</html>
+
+
+

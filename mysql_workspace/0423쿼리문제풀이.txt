@@ -1,0 +1,88 @@
+
+1.SMITH와 동일한 업무를 하는 사원의 이름, 업무, 입사일 출력 
+SELECT ENAME, JOB, HIREDATE
+FROM EMP 
+WHERE JOB = ( SELECT JOB FROM EMP WHERE ENAME='SMITH');
+
+2.WARD 의 입사일보다 빠른 사원들을 출력하세요 
+SELECT * FROM EMP 
+WHERE HIREDATE < (SELECT HIREDATE FROM EMP WHERE ENAME='WARD');
+
+3.사원의 평균 급여보다 적은 급여를 받는 사원의 이름, 급여를 출력하세요 
+SELECT ENAME, SAL
+FROM EMP 
+WHERE SAL < (SELECT AVG(SAL) FROM EMP);
+
+4.부서위치가 DALLAS 인 부서에 근무하는 사원들의 이름, 부서번호를 출력하세요 
+SELECT ENAME, DEPTNO
+FROM EMP 
+WHERE DEPTNO = (SELECT DEPTNO FROM DEPT WHERE LOC='DALLAS');
+
+5.ALLEN의 매니저의 사원번호, 이름, 입사일을 출력하세요 
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE EMPNO=(SELECT MGR FROM EMP WHERE ENAME='ALLEN');
+
+6.커미션 계약을 한 사원들의 평균 급여에 1000 을 더한 급여보다, 더 많은 급여를 받는 사원의 이름, 급여를 출력하세요 
+SELECT ENAME, SAL 
+FROM EMP 
+WHERE SAL > (SELECT AVG(SAL)+1000 FROM EMP WHERE COMM IS NOT NULL);
+
+7.급여가 두번째로 높은 사원과 같은 부서에서 근무하는 사원의 이름, 급여, 부서번호를 출력하세요 
+SELECT ENAME, SAL, DEPTNO
+FROM EMP
+WHERE DEPTNO=( SELECT DEPTNO FROM EMP ORDER BY SAL DESC LIMIT 1 OFFSET 1);
+
+8.이름이 A로 시작하는 사원들의 급여의 합보다 높은 급여를 받는 사원의 사원명, 급여를 출력하세요 
+SELECT ENAME, SAL 
+FROM EMP 
+WHERE SAL > (SELECT SUM(SAL) FROM EMP WHERE ENAME LIKE 'A%');
+
+9.입사일이 세번째로 늦은 사원과 같은 부서에서 근무하는 사원들의 급여의 합을 출력하세요 
+SELECT SUM(SAL) FROM EMP 
+  WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE HIREDATE = (
+    SELECT HIREDATE FROM EMP ORDER BY HIREDATE DESC LIMIT 1 OFFSET 2
+));
+
+10번)
+SELECT DNAME,LOC,DEPTNO FROM DEPT WHERE DEPTNO=
+	(SELECT DEPTNO FROM EMP WHERE EMPNO=
+		(SELECT MGR FROM EMP WHERE COMM
+	=(SELECT MAX(COMM) FROM EMP)));
+
+11) 최대급여에서 최소급여를 뺀 금액보다도 더 많은 급여를 받는 사원의 이름, 급여를 출력하세요 
+SELECT ENAME, SAL 
+FROM EMP 
+WHERE SAL > ( SELECT MAX(SAL) - MIN(SAL) FROM EMP  );
+   
+12.SALES 부서의 평균 급여보다 급여를 더 많이 받는 사원의 이름, 급여를 출력하세요 
+
+SELECT ENAME, SAL
+FROM EMP 
+WHERE SAL > ( 
+	SELECT AVG(SAL) FROM EMP WHERE DEPTNO=(
+		SELECT DEPTNO FROM DEPT WHERE DNAME='SALES')
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

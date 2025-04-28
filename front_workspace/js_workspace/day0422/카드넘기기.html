@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*a 태그를 버튼 처럼 보이게 만들기*/
+        a{
+            background-color: red;
+            /*인라인 속성은 유지하여, 다른 태그 요소와 공존이 가능하면서
+            너비, 높이, 마진...*/
+            display:inline-block;
+            width: 120px;
+            height: 70px;
+            border-radius: 10px;
+            line-height: 70px;
+            text-align: center;
+            text-decoration: none;
+            color:yellow;
+        }
+        a:hover{
+            background-color: orange;
+        }
+    </style>
+    <script>
+        //현재 보고 있는 카드의 다음 사진 나오도록 src를 교체하자
+        function next(){
+
+        }
+    </script>
+</head>
+<body>
+    <!-- 자바스크립트 코드를 작성할 수 있는 영역
+    1) <script> 태그에 
+    2) onClick 과 같은 이벤트 핸들러..
+    3) a 태그에 javascript: 접두어 붙이기
+    -->
+    <a href="javascript:next()">다음 카드</a>    
+
+    <div>
+        <img id="card" src="../../images/card/h1.jpg">
+    </div>
+
+</body>
+</html>
+
+
+
+
+

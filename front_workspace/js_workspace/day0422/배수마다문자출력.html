@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #num{
+            font-size:200px;
+            font-weight: bold;
+            color:red;
+        }
+    </style>
+    <script>
+        let n=0;
+
+        //문서내의 num 요소와 요소 사이의 텍스트를 동적으로 변경하자
+        function count(){
+            n++;
+            let num = document.getElementById("num");
+            let msg = (n%5==0)?  "사과":n;//변수값을 삼항연산자에게 맡기자
+            num.innerText=msg;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="count()">카운터 증가</button>    
+
+    <div id="num">0</div>
+
+</body>
+</html>
