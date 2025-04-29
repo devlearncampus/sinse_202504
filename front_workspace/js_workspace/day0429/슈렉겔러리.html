@@ -10,16 +10,41 @@
             height: 340px;
             background-color: yellow;
             margin: auto;
+            position: relative; /*relative=static+left+top*/
+            border:2px solid red;
+            overflow:hidden;/*넘치는 컨텐츠는 가리자*/
         }        
     </style>
     <script>
+        let imgArray=[
+            "img0.jpg",
+            "img1.jpg",
+            "img2.jpg",
+            "img3.jpg",
+            "img4.jpg",
+            "img5.jpg",
+            "img6.jpg"
+        ];
+
         //슈렉 이미지 7개를 생성하고, 7개 이미지를 담게될 바깥쪽 부모인 box를
         //생성하여 mask의 자식요소로 부착하자
         function createImg(){
             let box = document.createElement("div");
+            box.style.background="green";
+            box.style.width=500*imgArray.length+"px";
+            box.style.height=340+"px";
+            box.style.position="absolute";            
+
+            //box 안에 이미지의 배열 수만큼의 슈렉을 생성하여 자식으로 부착하자
+            document.createElement("img");
+
+            let mask = document.getElementById("mask");
+            mask.appendChild(box); //커다란 이미지 박스를 자식으로 추가
+
         }
+
         function gameLoop(){
-            console.log("gameLoop call...");
+            //console.log("gameLoop call...");
         }
         addEventListener("load", function(){
             createImg(); //슈렉의 이미지들 생성
