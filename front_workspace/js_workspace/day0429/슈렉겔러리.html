@@ -5,16 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
+        #wrapper{
+            width: 500px;
+            height: 390px;
+            margin: auto;
+        }
         #mask{
             width: 500px;
             height: 340px;
             background-color: yellow;
-            margin: auto;
             position: relative; /*relative=static+left+top*/
             border:2px solid red;
             overflow:hidden; /*넘치는 컨텐츠는 가리자*/
-        }        
+        }     
+        #footer{
+            width: 100%;
+            height: 50px;
+            background-color: aquamarine;
+            border-left:2px solid red;
+            border-right:2px solid red;
+            border-bottom:2px solid red;
+        }   
     </style>
     <script>
         let imgArray=[
@@ -52,18 +63,33 @@
 
         }
 
+        //일반일 콘솔 제어가 불가능하므로, UI로 이미지를 제어할 수 있도록 
+        //배려해주자
+        function createControl(){
+            let dot=document.createElement("div");
+            dot.style.width=30+"px";
+            dot.style.height=30+"px";
+            dot.style.background="pink";
+
+            //만들어진 네비 붙이기             
+            document.getElementById("footer");
+        }
+
         function gameLoop(){
             //console.log("gameLoop call...");
         }
         addEventListener("load", function(){
             createImg(); //슈렉의 이미지들 생성
-
+            createControl();//이미지 컨트롤러 생성 
             setInterval("gameLoop()",10);
         });
     </script>
 </head>
 <body>
-    <div id="mask"></div>    
+    <div id="wrapper">
+        <div id="mask"></div>    
+        <div id="footer"></div>
+    </div>
 
 </body>
 </html>
