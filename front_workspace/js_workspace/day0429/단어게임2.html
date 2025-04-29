@@ -40,19 +40,11 @@
             width: 100%;
             height: 100px;
             background-color: chartreuse;
-            font-size:75px;
-            text-align: center;
-            color:red;
-            font-weight: bold;
         }
         #score{
             width: 100%;
             height: 50px;
             background-color: darkorange;
-            font-size:30px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 50px;
         }
     </style>
     <script>        
@@ -65,21 +57,9 @@
         let n=0;//단어 배열의 데이터를 접근하기 위한 index
                     //즉 n의 값에 따라, 어떤 단어가 나오게 될지 결정..
         
-        let num=0; //점수를 누적시킬 전역 변수
-
-        //점수 계산 및 출력
-        function printScore(){
-            score.innerText=num;
-        }
-
         //게임에 사용할 단어를 출력하는 함수 
         function printWord(){
-            //0~9 까지만 유효...
-            if(n <= wordArray.length-1){
-                content.innerText=wordArray[n];
-            }else{
-                content.innerText="Game Over";
-            }
+            content.innerText=wordArray[n];
         }
 
         //이 함수를 호출하면 다음 단어가 나옴..(일치할때만 이 함수 호출하자)
@@ -105,18 +85,14 @@
                     if(content.innerText==input.value){
                         next(); 
                         feedback.innerText="O";
-                        num+=10; //점수 10 누적
-                        printScore();//점수 출력
                     }else{
                         feedback.innerText="X";
                     }
-                    //단어가 맞던 틀리던 , 다시 입력의 기회를 주자 
-                    input.value="";//초기화
+                    
                 }
             });
 
             printWord();//게임에 사용할 단어 출력
-            printScore();//초기 점수로 출력 
         }
 
         addEventListener("load", function(){
