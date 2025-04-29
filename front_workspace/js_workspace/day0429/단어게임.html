@@ -44,19 +44,8 @@
         }
     </style>
     <script>        
-        let wordArray=[
-            "마우스",
-            "태풍",
-            "말레이시아",
-            "저녁",
-            "우주정거장",
-            "벌레",
-            "폭포",
-            "휴지",
-            "구름",
-            "건물"
-        ];
-        
+        let wordArray=["마우스","태풍","말레이시아","저녁","우주정거장","벌레","폭포","휴지","구름","건물"];
+
         let content;
         let input;
         let feedback;
@@ -68,6 +57,15 @@
             input=document.querySelector("#input_area input");
             feedback=document.getElementById("feedback");
             score=document.getElementById("score");
+
+            //텍스트 박스에 키보드 이벤트 연결
+            input.addEventListener("keyup", function(e){
+
+                if(e.keyCode==13){//아스키 코드가 13 즉 엔터키라면..
+                    console.log("엔터쳤어?");
+                }
+
+            });
         }
 
         addEventListener("load", function(){
