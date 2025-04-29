@@ -23,6 +23,14 @@
             width: 100%;
             height: 100px;
             background-color: aqua;
+            text-align: center;
+        }
+        #input_area input{
+            width: 97%;
+            height: 97%;
+            border-radius: 10px;
+            border:0px; /*경계선 없애기*/
+            font-size:75px;
         }
         #feedback{
             width: 100%;
@@ -35,12 +43,46 @@
             background-color: darkorange;
         }
     </style>
+    <script>        
+        let wordArray=[
+            "마우스",
+            "태풍",
+            "말레이시아",
+            "저녁",
+            "우주정거장",
+            "벌레",
+            "폭포",
+            "휴지",
+            "구름",
+            "건물"
+        ];
+        
+        let content;
+        let input;
+        let feedback;
+        let score;
+        
+        //초기화 함수
+        function init(){
+            content=document.getElementById("content");
+            input=document.querySelector("#input_area input");
+            feedback=document.getElementById("feedback");
+            score=document.getElementById("score");
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+
+    </script>
 </head>
 <body>
     
     <div id="wrapper">
         <div id="content"></div>
-        <div id="input_area"></div>
+        <div id="input_area">
+            <input type="text">
+        </div>
         <div id="feedback"></div>
         <div id="score"></div>
     </div>
