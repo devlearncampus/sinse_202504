@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mask{
+            width: 500px;
+            height: 340px;
+            background-color: yellow;
+            margin: auto;
+        }        
+    </style>
+    <script>
+        //슈렉 이미지 7개를 생성하고, 7개 이미지를 담게될 바깥쪽 부모인 box를
+        //생성하여 mask의 자식요소로 부착하자
+        function createImg(){
+            let box = document.createElement("div");
+        }
+        function gameLoop(){
+            console.log("gameLoop call...");
+        }
+        addEventListener("load", function(){
+            createImg(); //슈렉의 이미지들 생성
+
+            setInterval("gameLoop()",10);
+        });
+    </script>
+</head>
+<body>
+    <div id="mask"></div>    
+
+</body>
+</html>
+
+
+
+
+
+
