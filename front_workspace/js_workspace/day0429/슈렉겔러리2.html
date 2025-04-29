@@ -17,24 +17,23 @@
             position: relative; /*relative=static+left+top*/
             border:2px solid red;
             overflow:hidden; /*넘치는 컨텐츠는 가리자*/
-        }        
+        }     
         #footer{
             width: 100%;
             height: 50px;
-            background-color: yellow;
+            background-color: aquamarine;
             border-left:2px solid red;
             border-right:2px solid red;
             border-bottom:2px solid red;
-            line-height: 50px;
-        }
-
+        }   
         #footer div{
             width: 30px;
             height: 30px;
-            background-color: pink;
+            background: pink;
             border-radius: 50%;
-            float:left;
-            margin-top: 10px;
+            float:left;/*띄워놓은 블락은 margin, padding을 적용해도 
+            박스크기에 영향을 주지 못한다..왜? float으로 띄워놓으면
+            그 요소는 normal position을 벗어났기 때문*/
         }
     </style>
     <script>
@@ -48,6 +47,8 @@
             "img6.jpg"
         ];
         let box; //모든 영역에서 접근하기 위함
+        let n=0; //사용자가 현재 보고있는 사진의 index를 표현한 전역변수
+        let a=0.1;
 
         //슈렉 이미지 7개를 생성하고, 7개 이미지를 담게될 바깥쪽 부모인 box를
         //생성하여 mask의 자식요소로 부착하자
@@ -56,7 +57,8 @@
             box.style.background="green";
             box.style.width=500*imgArray.length+"px";
             box.style.height=340+"px";
-            box.style.position="absolute";            
+            box.style.position="absolute";        
+            
 
             for(let i=0;i<imgArray.length;i++){
                 //box 안에 이미지의 배열 수만큼의 슈렉을 생성하여 자식으로 부착하자
@@ -72,26 +74,44 @@
             mask.appendChild(box); //커다란 이미지 박스를 자식으로 추가
 
         }
-        
+
+        //사용자가 선택한 번째의 슈렉이미지 box의 값을 위치시키기... 
+        function move(){
+            //box의 위치는 0번째:0px, 1번째:-500px, 2번째:-1000px
+            //i=0*-500, i=1*-500, i=2*-500
+            
+            box.style.left=parseFloat(box.style.left) + a*((-n*500) - parseFloat(box.style.left))+"px";
+        }
+
+        //일반일 콘솔 제어가 불가능하므로, UI로 이미지를 제어할 수 있도록 
+        //배려해주자
         function createControl(){
-            let dot = document.createElement("div");
-            dot.style.display="inline-block";
-            let footer = document.getElementById("footer");
-            footer.appendChild(dot);
+            for(let i=0; i<imgArray.length;i++){
+                let dot=document.createElement("div");
+
+                dot.addEventListener("mouseover", function(){
+                    console.log(i, "번째 사진을 보고싶어?");
+                    n=i;
+                });
+
+                //만들어진 네비 붙이기             
+                let footer=document.getElementById("footer");
+                footer.appendChild(dot);
+            }
         }
 
         function gameLoop(){
             //console.log("gameLoop call...");
+            move();
         }
         addEventListener("load", function(){
             createImg(); //슈렉의 이미지들 생성
-            createControl(); //컨트롤러 만들기 
+            createControl();//이미지 컨트롤러 생성 
             setInterval("gameLoop()",10);
         });
     </script>
 </head>
 <body>
-
     <div id="wrapper">
         <div id="mask"></div>    
         <div id="footer"></div>
