@@ -73,8 +73,8 @@
         }
         
         //점의 좌표를 우측 영역에 출력하기 
-        function printDot(){
-            aside.innerHTML=aside.innerHTML+posArray[index][0]+","+posArray[index][1] +"<br>";
+        function printDot(x,y){
+            aside.innerHTML=aside.innerHTML+x+","+y +"<br>";
         }
 
         //마리오 움직이기 
@@ -102,6 +102,7 @@
                 let y=event.clientY; //마우스 y좌표
                 createDot(x, y);//점 만들기
                 insertDot(x,y);//데이터베이스 정보를 쌓자
+                printDot(x,y);//점을 출력
             });
         }
         addEventListener("load", function(){
@@ -114,7 +115,7 @@
     
     <div id="wrapper">
         <div id="content"></div>
-        <div id="aside">좌표 누적</div>
+        <div id="aside"></div>
     </div>
 
 </body>

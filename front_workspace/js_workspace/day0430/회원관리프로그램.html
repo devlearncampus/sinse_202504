@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin:0px}
+        #wrapper{
+            width: 1000px;
+            height: 600px;
+            background-color: yellow;
+            margin: auto;
+        }
+        #aside1{
+            width: 200px;
+            height: 600px;
+            background-color: antiquewhite;
+            float:left;
+            text-align: center;
+        }
+        #section{
+            width: 600px;
+            height: 600px;
+            background-color: blue;
+            float:left;
+        }
+        #header{
+            width: 100%;
+            height: 50px;
+            background-color: rgb(176, 147, 113);
+        }
+        #content{
+            width: 100%;
+            height: 550px;
+            background-color: yellow;
+        }
+        #aside2{
+            width: 200px;
+            height: 600px;
+            background-color: rgb(84, 135, 135);
+            float:left;
+        }
+        form input{
+            height: 35px;
+            margin:2px;
+            border:1px solid #cccccc;
+            border-radius: 3px;
+        }
+    </style>
+    <script>
+        addEventListener("load", function(){
+
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="aside1">
+            <!-- 입력 양식 구성 
+                form 태그는 말그래도 양식이라는 뜻, 즉 제출 양식을 작성하기 위한
+                태그이며, 눈에 보여지지 않음, 주 용도는 전송 범위를 설정 
+            -->
+             <form>
+                <input type="text" placeholder="사원번호 입력..">
+                <input type="text" placeholder="사원명 입력..">
+                <input type="text" placeholder="급여 입력..">
+                <input type="text" placeholder="커미션..">
+                <input type="button" value="사원등록">
+             </form>
+
+        </div>
+        <div id="section">
+            <div id="header"></div>
+            <div id="content"></div>
+        </div>
+        <div id="aside2">
+            <form>
+                <input type="text" placeholder="사원번호 입력..">
+                <input type="text" placeholder="사원명 입력..">
+                <input type="text" placeholder="급여 입력..">
+                <input type="text" placeholder="커미션..">
+                <input type="button" value="사원수정">
+                <input type="button" value="사원삭제">
+             </form>
+
+        </div>
+    </div>    
+
+</body>
+</html>

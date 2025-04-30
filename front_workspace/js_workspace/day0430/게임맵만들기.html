@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #stage{
+            width: 1200px;
+            height: 800px;
+            background-image: url(../../images/gamemap/BG.png);
+            background-size: 1200px 800px;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <script>
+        let stage;
+        const tree=1; //앞으로 나무는 1의 값는다 
+        const brick=2; //벽돌은 2다 
+        const box=3; //박스는 3이다.
+
+        //stage에 올려질 물체의 좌표를 결정할 표(이차원배열) 선언
+        let map=[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,2,2,0,0],
+            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0],
+            [0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,1,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,2,2,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0]
+        ];
+
+        //게임에 등장할 객체들을 화면에 생성 및 부착하기 위한 함수
+        function createObject(){
+            for(let i=0; i<map.length;i++){//층수 만큼..
+                for(let a=0;a<map[i].length;a++){//호수 만큼...
+                    
+                    if(map[i][a]!=0){//map의 각 요소에서 추출된 값이 0이 아니면..
+                        let img=document.createElement("img");
+                        let src; //어떤 이미지를 보여줄지를 결정하는 변수
+                       
+                        //조건 판단 대상이 여러개 이고, 대상이 단순한 문자,숫자,논리값
+                        //인 경우 코드를 짧게 사용하려면 switch문 
+                        switch(map[i][a]){
+                            case tree:src="../../images/gamemap/Tree.png";break;
+                            case brick:src="../../images/gamemap/StoneBlock.png" ;break;
+                            case box:src="../../images/gamemap/Crate.png" ;break;
+                        }
+                        img.src=src;
+                        img.style.width=50+"px";
+                        img.style.height=50+"px";
+                        img.style.position="absolute";
+                        img.style.left=a*50+"px";
+                        img.style.top=i*50+"px";
+                        stage.appendChild(img);
+                    }
+                }
+            }
+        }
+
+        function init(){
+            stage=document.getElementById("stage");
+            createObject();
+        }
+        addEventListener("load", function(){
+            init();
+        });
+
+    </script>
+</head>
+<body>
+    <div id="stage"></div>
+</body>
+</html>
+
+
+
+
