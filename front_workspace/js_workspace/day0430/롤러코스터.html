@@ -17,6 +17,7 @@
             background-image: url(../../images/roller/bg.jpg);
             background-size: 100% 800px; /*배경이 패턴을 돌지 않도록 강제 크기 조정*/
             float:left;
+            position: relative;
         }
         #aside{
             width: 10%;
@@ -26,12 +27,48 @@
         }
     </style>
     <script>
+        let conent;
+        let aside;
+
+        //주인공을 생성하여 content에 부착
         function createHero(){
             let img=document.createElement("img");
+            img.src="../../images/roller/mario.jpg";
+            img.style.width=35+"px";
+            img.style.position="absolute";
+            img.style.left=100+"px";
+            img.style.top=100+"px";
+            img.style.transform="scaleX(-1)"; //x축 방향 flip
+
+            content.appendChild(img);
+        }
+
+        //span 태그를 생성하여, 점으로 표현하고 content부착
+        function createDot(x , y){//이 함수 호출하려면 값을 2개 전달
+            let span=document.createElement("span");
+            span.style.background="red";
+            span.style.borderRadius="50%";
+            span.style.display="inline-block";//공존능력+block질량가능
+            span.style.width=3+"px";
+            span.style.height=3+"px";
+            span.style.position="absolute"; //content 부모를 기준
+            span.style.left=x+"px";
+            span.style.top=y+"px";
+            content.appendChild(span);
         }
 
         function init(){
-            createHero();//주인공 등장            
+            content = document.getElementById("content");
+            aside = document.getElementById("aside");
+
+            createHero();//주인공 등장    
+            
+            //content 에 이벤트 연결 
+            content.addEventListener("mousedown", function(){
+                let x = event.clientX;//마우스x 좌표
+                let y=event.clientY; //마우스 y좌표
+                createDot(x, y);//점 만들기
+            });
         }
         addEventListener("load", function(){
             init();
@@ -42,7 +79,7 @@
 <body>
     
     <div id="wrapper">
-        <div id="content">롤러배경</div>
+        <div id="content"></div>
         <div id="aside">좌표 누적</div>
     </div>
 
