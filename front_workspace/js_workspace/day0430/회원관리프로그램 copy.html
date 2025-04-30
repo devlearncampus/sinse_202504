@@ -53,7 +53,12 @@
         }
     </style>
     <script>
-        let memberArray=[]; //비어있는 1차원 배열을 선언하자
+        let memberArray=[]; //비어있는 1차원 배열을 선언하자    
+        memberArray.push([1,"Zino", 100, 150]);
+        memberArray.push([2,"Adams", 200, 250]);
+        memberArray.push([3,"Scott", 300, 350]);
+        memberArray.push([4,"King", 400, 450]);
+        memberArray.push([5,"WARD", 500, 550]);
 
         let content;//회원 목록이 table  출력될 영역 
         let currentIndex; //현재 내가 선택한 층
@@ -83,17 +88,17 @@
             memberArray[currentIndex][2]=form2.sal.value;//급여 반영
             memberArray[currentIndex][3]=form2.sal.value;//커미션 반영
             
-            printTable();//테이블 출력 
+            printTable(memberArray);//테이블 출력 
         }
         
         //사원 한명 삭제 (이차원 배열의 몇층을 제거할지를 결정짓는다.)
         function del(){
             memberArray.splice(currentIndex, 1);
-            printTable();//테이블 갱신
+            printTable(memberArray);//테이블 갱신
         }
 
         //동적으로 테이블을 출력해보자
-        function printTable(){
+        function printTable(list){
             let tag="<table border='1px' width='100%'>";
             tag=tag+"<tr align='center'>";
             tag=tag+"<td>No</td>";    
@@ -103,21 +108,21 @@
             tag=tag+"<td>COMM</td>";    
             tag=tag+"</tr>";
 
-            let total=memberArray.length;
+            let total=list.length;
 
             //실제 데이터가 출력될 tr 영역...
-            for(let i=0;i<memberArray.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
+            for(let i=0;i<list.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
                 tag=tag+"<tr align='center' onClick=\"getDetail("+i+")\"    onMouseOver=\"this.style.background='pink'\" onMouseOut=\"this.style.background=''\">";
                 tag=tag+"<td>"+(total--)+"</td>";    
-                
-                for(let a=0;a<memberArray[i].length;a++){    
-                    tag=tag+"<td>"+memberArray[i][a]+"</td>";    
+
+                for(let a=0;a<list[i].length;a++){    
+                    tag=tag+"<td>"+list[i][a]+"</td>";    
                 }
                 tag=tag+"</tr>";
             }
             //통계출력 (td를 5개를 통합)
             tag=tag+"<tr>";
-            tag=tag+"<td colspan='5' align='right'>사원수 "+memberArray.length+" 명</td>";
+            tag=tag+"<td colspan='5' align='right'>사원수 "+list.length+" 명</td>";
             tag=tag+"</tr>";
             tag=tag+"</table>";
 
@@ -148,7 +153,7 @@
 
         addEventListener("load", function(){
             init();
-            printTable();
+            printTable(memberArray);
             
             //문서 로드 시, 커서를 좌측 입력 최상단에 올려놓아주는 배려..
             form1.empno.focus(); //커서 올려놓기
@@ -157,7 +162,7 @@
             let bt_regist=document.querySelector("#aside1 input[type='button']");
             bt_regist.addEventListener("click", function(){
                 regist();//회원 등록
-                printTable();//회원 출력
+                printTable(memberArray);//회원 출력
             });
 
             form2.bt_edit.addEventListener("click", function(){
@@ -165,6 +170,25 @@
                     edit();
                 }
             });
+
+            function searchData(){
+
+                let category = document.querySelector("#category");
+                let keyword = document.querySelector("#keyword");
+                let searchArray=[];
+
+                console.log("선택한 카테고리는 ",category.value);
+                console.log("검색어는 ", keyword.value);
+
+                for(let i=0;i<memberArray.length;i++){
+                    if(memberArray[i][parseInt(category.value)] == keyword.value){
+                        console.log("발견 ", i );
+                        searchArray.push(memberArray[i]);
+                    };
+                }
+                printTable(searchArray);
+
+            }
 
             form2.bt_del.addEventListener("click", function(){
                 if(confirm("삭제하시겠어요?")){
@@ -175,6 +199,10 @@
                         del();
                     }
                 }
+            });
+
+            document.querySelector("#header input[type='button']").addEventListener("click", function(){
+                searchData();
             });
         });
     </script>
@@ -198,13 +226,14 @@
         <div id="section">
             <div id="header">
                 
-                <select name="" >
+                <select id="category" name="category" >
                     <option value="0">사원번호</option>
                     <option value="1">사원명</option>
                     <option value="2">급여</option>
                     <option value="3">커미션</option>
                 </select>
-
+                <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요">
+                <input type="button" value="검색">
             </div>
             <div id="content"></div>
         </div>
