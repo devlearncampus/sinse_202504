@@ -103,10 +103,12 @@
             tag=tag+"<td>COMM</td>";    
             tag=tag+"</tr>";
 
+            let total=memberArray.length;
+
             //실제 데이터가 출력될 tr 영역...
             for(let i=0;i<memberArray.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
                 tag=tag+"<tr align='center' onClick=\"getDetail("+i+")\"    onMouseOver=\"this.style.background='pink'\" onMouseOut=\"this.style.background=''\">";
-                tag=tag+"<td>1</td>";    
+                tag=tag+"<td>"+(total--)+"</td>";    
 
                 for(let a=0;a<memberArray[i].length;a++){    
                     tag=tag+"<td>"+memberArray[i][a]+"</td>";    

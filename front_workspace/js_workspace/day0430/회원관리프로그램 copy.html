@@ -74,6 +74,18 @@
             form2.comm.value=memberArray[index][0];//커미션
         }
 
+        //선택한 층에 사는, 사원의 정보를 변경하여 테이블 갱신까지 처리..
+        function edit(){
+            //현재 이차원 배열인 memberArray의 수정하고 싶은 사원을 접근해보자
+            //접근하려면, 층 즉 currentIndex가 필요함 
+            memberArray[currentIndex][0]=form2.empno.value;//사원번호 반영
+            memberArray[currentIndex][1]=form2.ename.value;//사원이름 반영
+            memberArray[currentIndex][2]=form2.sal.value;//급여 반영
+            memberArray[currentIndex][3]=form2.sal.value;//커미션 반영
+            
+            printTable();//테이블 출력 
+        }
+        
         //사원 한명 삭제 (이차원 배열의 몇층을 제거할지를 결정짓는다.)
         function del(){
             memberArray.splice(currentIndex, 1);
@@ -91,11 +103,13 @@
             tag=tag+"<td>COMM</td>";    
             tag=tag+"</tr>";
 
+            let total=memberArray.length;
+
             //실제 데이터가 출력될 tr 영역...
             for(let i=0;i<memberArray.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
                 tag=tag+"<tr align='center' onClick=\"getDetail("+i+")\"    onMouseOver=\"this.style.background='pink'\" onMouseOut=\"this.style.background=''\">";
-                tag=tag+"<td>1</td>";    
-
+                tag=tag+"<td>"+(total--)+"</td>";    
+                
                 for(let a=0;a<memberArray[i].length;a++){    
                     tag=tag+"<td>"+memberArray[i][a]+"</td>";    
                 }
@@ -146,8 +160,21 @@
                 printTable();//회원 출력
             });
 
+            form2.bt_edit.addEventListener("click", function(){
+                if(confirm("정보를 수정하실래요?")){
+                    edit();
+                }
+            });
+
             form2.bt_del.addEventListener("click", function(){
-                del();
+                if(confirm("삭제하시겠어요?")){
+                    //사원을 선택한적이 없는 경우 욕!!
+                    if(currentIndex==undefined){
+                        alert("먼저 삭제하실 사원을 선택하세요");
+                    }else{
+                        del();
+                    }
+                }
             });
         });
     </script>
@@ -170,11 +197,14 @@
         </div>
         <div id="section">
             <div id="header">
-                <select name="" id="">
-                    <option value="">사원번호</option>
-                    <option value="">이름</option>
-                    <option value="">급여</option>
+                
+                <select name="" >
+                    <option value="0">사원번호</option>
+                    <option value="1">사원명</option>
+                    <option value="2">급여</option>
+                    <option value="3">커미션</option>
                 </select>
+
             </div>
             <div id="content"></div>
         </div>
