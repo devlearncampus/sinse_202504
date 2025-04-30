@@ -49,8 +49,71 @@
         }
     </style>
     <script>
-        addEventListener("load", function(){
+        let memberArray=[]; //비어있는 1차원 배열을 선언하자
 
+        let content;//회원 목록이 table  출력될 영역 
+        
+        //동적으로 테이블을 출력해보자
+        function printTable(){
+            let tag="<table border='1px' width='100%'>";
+            tag=tag+"<tr align='center'>";
+            tag=tag+"<td>No</td>";    
+            tag=tag+"<td>EMPNO</td>";    
+            tag=tag+"<td>ENAME</td>";    
+            tag=tag+"<td>SAL</td>";    
+            tag=tag+"<td>COMM</td>";    
+            tag=tag+"</tr>";
+
+            //실제 데이터가 출력될 tr 영역...
+            for(let i=0;i<memberArray.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
+                tag=tag+"<tr align='center'>";
+                tag=tag+"<td>1</td>";    
+                
+                for(let a=0;a<memberArray[i].length;a++){    
+                    tag=tag+"<td>"+memberArray[i][a]+"</td>";    
+                }
+                tag=tag+"</tr>";
+            }
+            tag=tag+"</table>";
+
+            content.innerHTML=tag;//모아진 태그를 한꺼번에 출력하자~~!
+        }
+
+        //메모리 상의 데이터베이스=이차원 배열에, 사원 한명 등록하기..
+        function regist(){
+            //사원 한명은 하나의 일차원 배열에 담을 수 있으므로, 일차원 배열 생성하자
+            let member=[];
+            member.push(form1.empno.value);//사원번호의 값을 0번째에 등록
+            member.push(form1.ename.value);//사원명 값을 1번째에 등록
+            member.push(form1.sal.value);//급여 값을 2번째에 등록
+            member.push(form1.comm.value);//커미션 값을 3번째에 등록
+
+            //방금 생성된 사원 1명의 정보를 담는 member 배열을, memberArray라는
+            //배열에 추가하자(memberArray는 비로소 이차원 배열이 됨)
+            memberArray.push(member);
+            
+            //alert("가입을 축하합니다.");
+            //등록 초기화 (기존 입력했던 데이터를 다시 지운다.)
+            form1.reset();
+        }
+
+        function init(){
+            content=document.getElementById("content");
+        }
+
+        addEventListener("load", function(){
+            init();
+            printTable();
+            
+            //문서 로드 시, 커서를 좌측 입력 최상단에 올려놓아주는 배려..
+            form1.empno.focus(); //커서 올려놓기
+
+            //등록 버튼에 클릭이벤트 연결 
+            let bt_regist=document.querySelector("#aside1 input[type='button']");
+            bt_regist.addEventListener("click", function(){
+                regist();//회원 등록
+                printTable();//회원 출력
+            });
         });
     </script>
 </head>
@@ -61,11 +124,11 @@
                 form 태그는 말그래도 양식이라는 뜻, 즉 제출 양식을 작성하기 위한
                 태그이며, 눈에 보여지지 않음, 주 용도는 전송 범위를 설정 
             -->
-             <form>
-                <input type="text" placeholder="사원번호 입력..">
-                <input type="text" placeholder="사원명 입력..">
-                <input type="text" placeholder="급여 입력..">
-                <input type="text" placeholder="커미션..">
+             <form name="form1">
+                <input type="text" name="empno" placeholder="사원번호 입력..">
+                <input type="text" name="ename" placeholder="사원명 입력..">
+                <input type="text" name="sal"   placeholder="급여 입력..">
+                <input type="text" name="comm" placeholder="커미션..">
                 <input type="button" value="사원등록">
              </form>
 

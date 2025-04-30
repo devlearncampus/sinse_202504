@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin:0px}
+        #wrapper{
+            width: 1000px;
+            height: 600px;
+            background-color: yellow;
+            margin: auto;
+        }
+        #aside1{
+            width: 200px;
+            height: 600px;
+            background-color: antiquewhite;
+            float:left;
+            text-align: center;
+        }
+        #section{
+            width: 600px;
+            height: 600px;
+            background-color: blue;
+            float:left;
+        }
+        #header{
+            width: 100%;
+            height: 50px;
+            background-color: rgb(176, 147, 113);
+        }
+        #content{
+            width: 100%;
+            height: 550px;
+            background-color: yellow;
+        }
+        #aside2{
+            width: 200px;
+            height: 600px;
+            background-color: rgb(84, 135, 135);
+            float:left;
+        }
+        form input{
+            height: 35px;
+            margin:2px;
+            border:1px solid #cccccc;
+            border-radius: 3px;
+        }
+    </style>
+    <script>
+        let wrapper;
+        let a=0.1;
+        let targetY=30;
+        let memberArray=new Array();
+        let input_empno, input_ename, input_sal, input_comm;
+        let input_empno2, input_ename2, input_sal2, input_comm2;
+
+        function move(){
+            wrapper.style.top = parseFloat(wrapper.style.top) + a*(targetY-parseFloat(wrapper.style.top))+"px";
+        }
+        
+        function regist(){
+
+        }
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+            wrapper.style.position="relative";
+            wrapper.style.top=-600+"px";
+
+            input_empno = document.getElementById("input_empno");
+            input_empno = document.getElementById("input_ename");
+            input_empno = document.getElementById("input_sal");
+            input_empno = document.getElementById("input_comm");
+            input_empno = document.getElementById("input_empno2");
+            input_empno = document.getElementById("input_ename2");
+            input_empno = document.getElementById("input_sal2");
+            input_empno = document.getElementById("input_comm2");
+
+            let bt1 = document.querySelector("#aside1 input[type='button']");
+            bt1.addEventListener("click", function(){
+                regist();
+            });
+        }
+
+        addEventListener("load", function(){
+            init();
+
+            setInterval("move()",30);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="aside1">
+            <!-- 입력 양식 구성 
+                form 태그는 말그래도 양식이라는 뜻, 즉 제출 양식을 작성하기 위한
+                태그이며, 눈에 보여지지 않음, 주 용도는 전송 범위를 설정 
+            -->
+             <form>
+                <input type="text" placeholder="사원번호 입력..">
+                <input type="text" placeholder="사원명 입력..">
+                <input type="text" placeholder="급여 입력..">
+                <input type="text" placeholder="커미션..">
+                <input type="button" value="사원등록">
+             </form>
+
+        </div>
+        <div id="section">
+            <div id="header"></div>
+            <div id="content"></div>
+        </div>
+        <div id="aside2">
+            <form>
+                <input type="text" placeholder="사원번호 입력..">
+                <input type="text" placeholder="사원명 입력..">
+                <input type="text" placeholder="급여 입력..">
+                <input type="text" placeholder="커미션..">
+                <input type="button" value="사원수정">
+                <input type="button" value="사원삭제">
+             </form>
+
+        </div>
+    </div>    
+
+</body>
+</html>
