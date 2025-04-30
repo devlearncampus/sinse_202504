@@ -35,6 +35,7 @@
         let img; //모든 영역에서 접근하기 위해
         let index=0; // 전체 이차원 배열의 어떤 층을 접근할지를 결정
                           //하는 변수
+        let flag=false;
 
         //주인공을 생성하여 content에 부착
         function createHero(){
@@ -71,11 +72,22 @@
             posArray.push(pos);
         }
         
+        //점의 좌표를 우측 영역에 출력하기 
+        function printDot(){
+            aside.innerHTML=aside.innerHTML+posArray[index][0]+","+posArray[index][1] +"<br>";
+        }
+
         //마리오 움직이기 
         function move(){
             //데이터베이스에 쌓여있는 순서대로..
-            img.style.left=posArray[index][0]+"px"; 
-            img.style.top=posArray[index][1]+"px";
+            if(flag){
+                //배열의 끝을 만나게 되면 다시 처음으로 되돌리자
+                if(index>=posArray.length){index=0;}
+                    
+                img.style.left=posArray[index][0]+"px"; 
+                img.style.top=posArray[index][1]+"px";
+                index++;
+            }
         }
 
         function init(){
@@ -94,7 +106,7 @@
         }
         addEventListener("load", function(){
             init();
-            //setInterval("");
+            setInterval("move()", 100);
         });
     </script>
 </head>
