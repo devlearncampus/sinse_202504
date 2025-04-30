@@ -47,12 +47,39 @@
             border:1px solid #cccccc;
             border-radius: 3px;
         }
+        table{
+            /*두겹으로 겹치는 테이블의 기본 경계를 허문다*/
+            border-collapse: collapse; 
+        }
     </style>
     <script>
         let memberArray=[]; //비어있는 1차원 배열을 선언하자
 
         let content;//회원 목록이 table  출력될 영역 
-        
+        let currentIndex; //현재 내가 선택한 층
+
+        //사원 1명에 대한 자세한 정보 가져와서 우측 영역에 출력하자 
+        function getDetail(index){
+            currentIndex = index; //현재 내가 몇층을 보고 있는지 다른 함수에서도
+                                            //알게 하기 위해, 전역변수로 빼자 
+            //넘어온 index는 층수이므로, memberArray 배열에 접근할 수 있다!!
+            console.log("사원번호 ", memberArray[index][0]);
+            console.log("이름은 ",  memberArray[index][1]);
+            console.log("급여는 ",  memberArray[index][2]);
+            console.log("커미션 ",  memberArray[index][3]);
+
+            form2.empno.value= memberArray[index][0]; //사원번호
+            form2.ename.value=memberArray[index][1]; //사원명
+            form2.sal.value=memberArray[index][2]; //급여 
+            form2.comm.value=memberArray[index][0];//커미션
+        }
+
+        //사원 한명 삭제 (이차원 배열의 몇층을 제거할지를 결정짓는다.)
+        function del(){
+            memberArray.splice(currentIndex, 1);
+            printTable();//테이블 갱신
+        }
+
         //동적으로 테이블을 출력해보자
         function printTable(){
             let tag="<table border='1px' width='100%'>";
@@ -66,7 +93,7 @@
 
             //실제 데이터가 출력될 tr 영역...
             for(let i=0;i<memberArray.length;i++){ //이차원 배열은 층수와 같으니...층수만큼 반복시킨다
-                tag=tag+"<tr align='center' onMouseOver='this.style.background='green' '>";
+                tag=tag+"<tr align='center' onClick=\"getDetail("+i+")\"    onMouseOver=\"this.style.background='pink'\" onMouseOut=\"this.style.background=''\">";
                 tag=tag+"<td>1</td>";    
 
                 for(let a=0;a<memberArray[i].length;a++){    
@@ -74,6 +101,10 @@
                 }
                 tag=tag+"</tr>";
             }
+            //통계출력 (td를 5개를 통합)
+            tag=tag+"<tr>";
+            tag=tag+"<td colspan='5' align='right'>사원수 "+memberArray.length+" 명</td>";
+            tag=tag+"</tr>";
             tag=tag+"</table>";
 
             content.innerHTML=tag;//모아진 태그를 한꺼번에 출력하자~~!
@@ -114,6 +145,10 @@
                 regist();//회원 등록
                 printTable();//회원 출력
             });
+
+            form2.bt_del.addEventListener("click", function(){
+                del();
+            });
         });
     </script>
 </head>
@@ -138,13 +173,14 @@
             <div id="content"></div>
         </div>
         <div id="aside2">
-            <form>
-                <input type="text" placeholder="사원번호 입력..">
-                <input type="text" placeholder="사원명 입력..">
-                <input type="text" placeholder="급여 입력..">
-                <input type="text" placeholder="커미션..">
-                <input type="button" value="사원수정">
-                <input type="button" value="사원삭제">
+            <form name="form2">
+                <input type="text" name="empno" placeholder="사원번호 입력..">
+                <input type="text" name="ename" placeholder="사원명 입력..">
+                <input type="text" name="sal"   placeholder="급여 입력..">
+                <input type="text" name="comm" placeholder="커미션..">
+                
+                <input type="button" name="bt_edit" value="사원수정">
+                <input type="button" name="bt_del" value="사원삭제">
              </form>
 
         </div>
