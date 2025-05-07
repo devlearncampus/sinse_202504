@@ -1,0 +1,226 @@
+SQL> --SYS 계정은 되도록 사용을 지양하도록 한다..워낙 막강해서
+SQL> --사용이 부담스러움. SYS보다는 하위의 관리자인 SYSTEM 이용
+SQL> --SYS계정으로 로그인 한 상태에서 SYSTEM의 계정을 재할당
+SQL> ALTER  USER SYSTEM
+  2  IDENTIFIED BY 1234;
+
+User altered.
+
+SQL> --이미 SQLPLUS 에 접속을 한 상태에서 다른 계정으로 전환할때
+SQL> --SQLPLUS 호출하지 말자, 접속을 전환하는 명령어는 CONNECT,CONN
+SQL> CONN SYSTEM/1234
+Connected.
+SQL> --현재 접속 계정 확인
+SQL> SHOW USER;
+USER is "SYSTEM"
+SQL> --현재 시스템에 존재하는 모든 유저를 출력
+SQL> --오라클에서 시스템 정보를 알기 위해서는 사전을 조회
+SQL> --현재 접속자가 관리자인 경우 사전의 이름은 접두어가 DBA_, V$로 시작
+SQL> SELECT  USERNAME  FROM DBA_USERS;
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+SYS                                                                             
+SYSTEM                                                                          
+ANONYMOUS                                                                       
+JAVA                                                                            
+JS                                                                              
+APEX_PUBLIC_USER                                                                
+FLOWS_FILES                                                                     
+APEX_040000                                                                     
+OUTLN                                                                           
+DIP                                                                             
+ORACLE_OCM                                                                      
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+XS$NULL                                                                         
+MDSYS                                                                           
+CTXSYS                                                                          
+DBSNMP                                                                          
+XDB                                                                             
+APPQOSSYS                                                                       
+HR                                                                              
+
+18 rows selected.
+
+SQL> --일반 계정인 JS로 로그인 하자
+SQL> CONN JS/1234
+Connected.
+SQL> SHOW USER;
+USER is "JS"
+SQL> --제약조건을 추가적으로 학습
+SQL> --NOT NULL, DEFAULT, UNIQUE, CHECK, PRIMARY KEY, FOREIGN KEY
+SQL> --JS가 보유한 테이블목록 조회
+SQL> --사전을 조회하자 , 현재 계정이 일반인 계정이기 때문에 사전이름
+SQL> --은 USER_로 시작 ...
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                      
+------------------------------------------------------------                    
+MEMBER                                                                          
+
+SQL> --제약 조건중 너무 너무 필수적인 제약 조건인 PRIMARY KEY
+SQL> --UNIQUE + NOT NULL
+SQL> --UNIQUE 만으로는 아직 무결성을 보장받지 못하는 경우를
+SQL> --경험해보자
+SQL> CREATE TABLE MEMBER2(
+  2  ID VARCHAR2(20)
+  3  , EMAIL VARCHAR2(25)
+  4  , REGDATE DATE DEFAULT SYSDATE
+  5  );
+
+Table created.
+
+SQL> DROP TABLE MEMBER2;
+
+Table dropped.
+
+SQL> CREATE TABLE MEMBER2(
+  2  ID VARCHAR2(20) UNIQUE
+  3  , EMAIL VARCHAR(25) NOT NULL
+  4  , REGDATE  DATE  DEFAULT SYSDATE
+  5  );
+
+Table created.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE MEMBER2(
+  2  ID VARCHAR2(20) UNIQUE
+  3  , EMAIL VARCHAR(25) NOT NULL
+  4  , REGDATE  DATE  DEFAULT SYSDATE
+  5* )
+SQL> INSERT INTO MEMBER2(ID,EMAIL) VALUES('KING','DAUM');
+
+1 row created.
+
+SQL> INSERT INTO MEMBER2(ID,EMAIL) VALUES('KING','DAUM');
+INSERT INTO MEMBER2(ID,EMAIL) VALUES('KING','DAUM')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JS.SYS_C007011) violated 
+
+
+SQL> INSERT INTO MEMBER2(EMAIL) VALUES('DAUM');
+
+1 row created.
+
+SQL> INSERT INTO MEMBER2(EMAIL) VALUES('DAUM');
+
+1 row created.
+
+SQL> INSERT INTO MEMBER2(EMAIL) VALUES('DAUM');
+
+1 row created.
+
+SQL> INSERT INTO MEMBER2(EMAIL) VALUES('DAUM');
+
+1 row created.
+
+SQL> SELECT * FROM MEMBER2;
+
+ID                                                                              
+----------------------------------------                                        
+EMAIL                                              REGDATE                      
+-------------------------------------------------- --------                     
+KING                                                                            
+DAUM                                               25/05/07                     
+                                                                                
+                                                                                
+DAUM                                               25/05/07                     
+                                                                                
+                                                                                
+DAUM                                               25/05/07                     
+                                                                                
+
+ID                                                                              
+----------------------------------------                                        
+EMAIL                                              REGDATE                      
+-------------------------------------------------- --------                     
+                                                                                
+DAUM                                               25/05/07                     
+                                                                                
+                                                                                
+DAUM                                               25/05/07                     
+                                                                                
+
+SQL> --UNIQUE 는 중복을 허용하지 않는 장치이긴 하지만, 단 널을 허용해
+SQL> --버린다.. 따라서 테이블에 입력된 데이터들 간 구분을 위한
+SQL> --숫자형 컬럼을 추가할때는 UNIQUE + NOT NULL을 합친 제약 조건을
+SQL> --부여해야 안전하다..하지만, UNIQUE +NOT NULL 굳이 둘다 명시할
+SQL> --필요는 없고, 이미 이 제약조건을 합쳐놓은 제약 조건인 PRIMARY KEY
+SQL> CREATE  TABLE  MEMBER3(
+  2  ID NUMBER  PRIMARY KEY
+  3  , EMAIL VARCHAR2(25)
+  4  , REGDATE  DATE  DEFAULT SYSDATE
+  5  , USERID VARCHAR2(20)
+  6  );
+
+Table created.
+
+SQL> --PRIMARY KEY 값은 유일해야 하므로, 시스템이 알아서
+SQL> --증가시켜 가며 스스로 넣도록 맡기자
+SQL> --따라서 오직 숫자값 만을 전용 으로 증가시켜주는 객체인 시퀀스를
+SQL> --이용하자
+SQL> CREATE  SEQUENCE  SEQ_MEMBER3
+  2  INCREMENT BY 1
+  3  START WITH 1;
+CREATE  SEQUENCE  SEQ_MEMBER3
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> --권한을 부여받기 위해 다시 SYSTEM으로 접속
+SQL> CONN SYSTEM/1234
+Connected.
+SQL> GRANT  CREATE SEQENCE  TO JS;
+GRANT  CREATE SEQENCE  TO JS
+       *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* GRANT  CREATE SEQUENCE  TO JS
+SQL> /
+
+Grant succeeded.
+
+SQL> --다시 JS로 ...
+SQL> CONN JS/1234
+Connected.
+SQL> CREATE  SEQUENCE  SEQ_MEMBER3
+  2  INCREMENT BY 1
+  3  START WITH 1;
+
+Sequence created.
+
+SQL> INSERT INTO MEMBER3(ID,USERID,EMAIL)
+  2  VALUES(SEQ_MEMBER3.NEXTVAL,'KING','DAUM');
+
+1 row created.
+
+SQL> INSERT INTO MEMBER3(ID,USERID,EMAIL)
+  2  VALUES(SEQ_MEMBER3.NEXTVAL,'ADAMS','NAVER');
+
+1 row created.
+
+SQL> SELECT * FROM MEMBER3;
+
+        ID EMAIL                                              REGDATE           
+---------- -------------------------------------------------- --------          
+USERID                                                                          
+----------------------------------------                                        
+         1 DAUM                                               25/05/07          
+KING                                                                            
+                                                                                
+         2 NAVER                                              25/05/07          
+ADAMS                                                                           
+                                                                                
+
+SQL> SPOOL OFF

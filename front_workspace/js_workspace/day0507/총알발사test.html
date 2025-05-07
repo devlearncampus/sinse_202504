@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/BulletTest.js"></script>
+    <script>
+        let bulletArray=[]; //다수의 총알을 보관할 전역변수 
+        let colorArray=["red","orange","yellow","green","blue","navy","purple"];
+        
+        //y축의 값을 0~  800 사이의 랜덤한 값으로 대체하기 
+
+        function fire(){
+            //7가지 색상 중, 랜덤한 색상을 추출하자 
+            //아래의 랜덤한 숫자는 절대로 7을 넘어서지 못하고, 최대 정수값은 6까 반환
+            let n=parseInt(Math.random()*colorArray.length);// 0.x.~~~ < 1
+
+            let bullet = new Bullet(colorArray[n], parseInt(Math.random()*801));
+            bullet.move();
+            //bulletArray.push(bullet); // 생성된 총알을 배열에 추가
+        }
+
+        addEventListener("load", function(){
+            let bt=document.querySelector("button");
+
+            bt.addEventListener("click", function(){
+                fire();
+            });
+
+            //setInterval(gameLoop, 10);
+        });
+     </script>
+</head>
+<body>
+    
+    <button>발사</button>    
+
+</body>
+</html>
+
+
+
+
+

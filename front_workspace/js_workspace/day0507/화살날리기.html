@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arrowList=[]; //화살을 무수히 담게될 배열 
+
+        /*
+        oop가 나오기 이전 시대의 절차지향 언어(예:c)로도, 현실을 반영할 수 있었음
+        하지만, 절차지향 언어의 최대 기술은 함수였으나, 함수만으로는 현실을 반영할때
+        코드 중복이 발생함.. 하지만 객체지향 언어는, 현실의 사물을 반영할때, 
+        상태는 변수로, 동작이나, 상태의 변경은 함수로 표현하되, 이 둘의 조합이 
+        곧 사물임을 깨닫게 된 상황에서 탄생된 언어..
+        즉, 신기술이 아니라 현실을 반영하는 방법을 바꾼 것 뿐이다..(각성)
+        */
+        class Arrow{ //화살을 대량으로 생산할 수있는 화살 거푸집 선언
+            //2015년에 발표된 ES6 부터 지원하는 클래스는 우리가 알고 있는 
+            //Java 언어와는 100% 일치하지 않음..
+            //즉 클래스가 보유한 변수는 반드시 생성자라 불리는 함수내에 작성해야
+            //하고, 클래스가 보유한 변수앞에는 this를 명시해야 함
+            constructor(){//이 거푸집으로부터 생성시킬 사물들의 어떤 스타일로
+                //생성할지를 결정하는 초기화 함수를 생성자라 부름
+                this.span;
+                this.x=0; //화살의 좌표 
+                this.velX=5;//화살의 속도
+
+                //문서에 요소를 생성하여, left값을 증가시켜보자(계속)
+                this.span=document.createElement("span");//inline : 너비,높이,마진,패딩x
+                this.span.innerText="→";
+                this.span.style.position="absolute";
+                this.span.style.left=this.x+"px";
+                this.span.style.top=100+"px";
+                this.span.style.fontSize=20+"px";
+                this.span.style.color="red";            
+
+                document.body.appendChild(this.span);
+    
+                //화살을 움직이게 하는 함수
+                //객체지향 언어에서객체가 보유한 함수는 메서드라 불러야 함
+                //이유? 해당 객체의 상태나, 움직임에 대한 방식(method)을 결정하므로. 
+            }
+            move(){
+                this.x = this.x + this.velX;
+                this.span.style.left=this.x+"px";
+            } 
+        }
+        function gameLoop(){
+            for(let i=0;i<arrowList.length;i++){
+                arrowList[i].move();
+            }
+            console.log("gameLoop called...");
+        }
+
+        addEventListener("load", function(){
+            setInterval(gameLoop, 10);
+        });
+
+    </script>
+</head>
+<body>    
+</body>
+</html>
