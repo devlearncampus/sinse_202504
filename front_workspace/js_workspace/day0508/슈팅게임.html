@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #stage{
+            width: 1920px;
+            height: 576px;
+            background-image: url("../../images/plane/bg.jpg");
+            margin: auto;
+        }
+    </style>
+    <script>
+        let bgX=0;
+
+        //stage 의 배경의 left 값을 감소
+        function bgEffect(){
+            let stage = document.getElementById("stage");
+            stage.style.backgroundPosition=`${bgX--}px  0px`;
+        }
+
+        function gameLoop(){
+            bgEffect();
+        }
+
+        /*자바스크립트의 함수의 정의 유형은 3가지를 지원 
+        1) 선언적 방법에 의한 함수 선언   function test(){}
+        2) 표현식에 의한 함수 선언  let test = function(){}
+        3) 화살표 함수 let test = ()=>{ 화살표함수는 this 보유할 수 없다
+                                                   따라서 화살표 함수영역에서 사용되는 this
+                                                   는 나를 가리키는 것이 아니라, 상위 스코프
+                                                   를 가리킨다.. 
+                                            }
+        */
+        addEventListener("load", ()=>{
+            // 화살표 함수가 자체적인 this 를 가질 수 없기 때문에, 바깥쪽 스코프(영역)
+            //인 전역 영역을 가리키게 되고, js언어에 전역 정보는 window객체가 보유
+            //하여, window객체가 js언어의 최상위 객체이다..
+            //console.log(this);
+            setInterval(gameLoop, 10);
+        })
+    </script>
+</head>
+<body>
+    <div id="stage"></div>
+</body>
+</html>
