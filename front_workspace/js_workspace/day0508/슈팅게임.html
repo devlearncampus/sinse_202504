@@ -12,6 +12,7 @@
             background-size: 1600px 576px;
             margin: auto;
             position: relative;
+            overflow: hidden;
         }
     </style>
     <script src="./js/Hero.js"></script>
@@ -34,7 +35,7 @@
         //총알 생성 , 누를때마다 총알을 생성시켜, 이름을 따로 주지 말고, 배열에 담자
         //장점? 반복문으로 처리할 수 있기 때문에...
         function fire(){
-            bulletArray.push(new Bullet(document.getElementById("stage"), hero.x, hero.y,25,25, 10,0));
+            bulletArray.push(new Bullet(document.getElementById("stage"), hero.x+hero.width*(8/10) , hero.y+ hero.height*(4/10) ,15,15, 10,0));
         }
 
 
@@ -42,7 +43,12 @@
             bgEffect();
             hero.move();
             
-            //총알의 움직임 메서드 호출 
+            //총알의 움직임 메서드 호출 ,배열에 들어있는 요소만큼 반복문으로..
+            for(let i=0;i<bulletArray.length;i++){
+                let bullet = bulletArray[i];
+                bullet.move();
+            }
+
 
         }
 
