@@ -38,6 +38,6 @@ class Rect2{
 
         setTimeout( ()=>{
             this.move();
-        } , 10 );
+        } , 5 );
     }
 }

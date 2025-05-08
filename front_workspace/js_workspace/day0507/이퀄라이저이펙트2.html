@@ -8,14 +8,9 @@
     <script>
         let width=20;//막대 하나당 너비 
         let height=1; //막대 하나당 높이 
-        let count=1; //생성하고픈 막대 수 
+        let count=60; //생성하고픈 막대 수 
         let colorArray=["red","orange","yellow","lightgreen","blue","navy","purple"];
-        let rect;
-
-        let test=()=>{
-            //화살표 함수내에서의 this는 상위 스코프(영역) 객체를 가리킴 
-            console.log("나 호출햇어?", this);
-        }
+        let rectArray=[];
 
         //원하는    수만큼의 막대를 만들어서, 부모에 부착하되,
         //부모의 크기는 결정된 것이 아니라, 자식의 크기와 수에
@@ -31,6 +26,8 @@
             wrapper.style.margin="auto";
             wrapper.style.background="lightgray";
             wrapper.style.position="relative";  
+            wrapper.style.transform="scaleY(-1)";
+            wrapper.style.top=600+"px";
             
             document.body.appendChild(wrapper);          
 
@@ -39,14 +36,26 @@
                 let bg=colorArray[parseInt(Math.random()*colorArray.length)];
 
                 //container, x, y, width, height,bg
-                rect = new Rect2(wrapper, i*width, 0, width, height , bg);
+                let rect = new Rect2(wrapper, i*width, 0, width, height , bg);
+                rectArray.push(rect);
+
             }
         }
+
+        function gameLoop(){            
+            rectArray[parseInt(Math.random()*rectArray.length)].targetH=Math.random()*450;
+        }
+
         addEventListener("load", function(){
             init();
+            setInterval(gameLoop, 1);
         });
+
     </script>
 </head>
 <body>
 </body>
 </html>
+
+
+
