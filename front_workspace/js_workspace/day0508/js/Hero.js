@@ -48,4 +48,14 @@ class Hero{
         }  , 50);
     }
 
+    //모든 방향에 대한 움직임 동작 정의 
+    move(){
+        this.x+=this.velX;//물리적 변화량
+        this.y+=this.velY; //물리적 변화량
+        console.log(this.x , this.y);
+
+        //변화된 물리량을 화면에 반영(rendering)
+        this.img.style.left=this.x+"px";
+        this.img.style.top=this.y+"px";
+    }
 }
