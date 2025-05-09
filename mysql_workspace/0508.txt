@@ -40,16 +40,8 @@ insert  into  member2(user_id, name, gender) values('scott', '스캇', '요');
 조건 EMP의 DETPNO와  DEPT의 DEPTNO가 같은 것만 골라서...
 
 SELECT ENAME, SAL, DNAME, LOC
-FROM  EMP, DEPT
-WHERE EMP.DEPTNO=DEPT.DEPTNO;
-
-
-
-
-
-
-
-
+FROM  EMP e, DEPT d
+WHERE e.DEPTNO=d.DEPTNO;
  
 
 

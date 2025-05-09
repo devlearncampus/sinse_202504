@@ -1,0 +1,14 @@
+<script>
+    /* js 의 함수의 정의 방법 3가지..*/
+    /*표현식 expression*/
+    let test=function(){
+        let d = new Date();
+        console.log(d.getHours(), d.getMinutes(), d.getSeconds());
+    }
+    //setInterval의 첫번째 매개변수로 함수를 넘겨줄때 
+    //호출이 아닌 함수명 또는 함수정의가 와야 한다..
+    //만일   함수() 넘겨버리면, setInterval에게 호출을 맡기는게
+    //아니라, 바로 호출이 되어버린다...  
+    setInterval(test , 1000);
+
+</script>
