@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin:0px}
+        #header{
+            height: 40px;
+            background-color: yellow;
+            line-height: 40px;
+        }
+        #header input[type="file"]{
+            width: 70px;
+        }
+        #content{
+            height: 500px;
+            background-color: aquamarine;
+        }
+        #footer{
+            height: 50px;
+            background-color: antiquewhite;
+            line-height: 50px;
+        }
+    </style>
+
+
+    <script>
+        let obj;
+
+        //사용자가 선택한 정보를 알고있는 이벤트 객체를 전달받아서, 파일을 읽어
+        //들이자!!!
+        function loadData(e){
+            console.log(e);
+
+            let file=e.target.files[0];//사용자가 선택한 바로 그 메모장..
+
+            //파일읽기 
+            let reader = new FileReader(); //2008~2014년도 쯤...
+           
+            reader.onload=function(data){
+                console.log(data);
+                //data.target.result;//읽어들인 문자열...
+                //(json 문자열..즉 객체 아님,따라서 파싱하기전까지는 사용불가)
+                obj=JSON.parse(data.target.result); //쌍따옴표 등을 제거한 후 JS객체 반환
+                console.log("파싱 결과는 ", obj);
+
+                printTable(obj);//출력시도!!
+            }
+            reader.readAsText(file);
+
+        }
+
+        //등록 시 누적된 맛집들의 리스트를 테이블로 동적 출력
+        function printTable(obj){
+            let tag="<table width='100%' border='1px'>";
+            tag+="<tr>";        
+            tag+="<td>No</td>";    
+            tag+="<td>상호명</td>";    
+            tag+="<td>연락처</td>";    
+            tag+="<td>위도경도</td>";    
+            tag+="<td>대표사진</td>";    
+            tag+="</tr>";
+            
+            let n=obj.storeList.length;
+            
+            for(let i=0;i<obj.storeList.length;i++){
+                let store=obj.storeList[i];
+                tag+="<tr>";        
+                tag+=`<td>${n--}</td>`;    
+                tag+=`<td>${store.store_name}</td>`;    
+                tag+=`<td>${store.tel}</td>`;    
+                tag+=`<td>${store.pos}</td>`;    
+                tag+="<td>대표사진</td>";    
+                tag+="</tr>";
+            }
+            tag+="</table>";
+
+            document.getElementById("content").innerHTML=tag;
+        }
+
+        //지도를 보유한 부모창에 , 현재 내가 보유한 리스트를 이용하여 
+        //마커 출력!!
+        function showIcons(){
+            window.opener.registAll(obj);
+            window.close();//나의 윈도우 자동 닫기
+        }
+
+        addEventListener("load", function(){
+            document.querySelector("#header input[type='file']").addEventListener("change", function(e){
+                loadData(e);
+            });
+            
+            document.querySelector("#footer button").addEventListener("click", function(){
+                showIcons();
+            });
+            
+        });
+
+    </script>
+</head>
+<body> 
+    <div id="header">
+        <input type="file">
+    </div>               
+    <div id="content"></div>
+    <div id="footer">
+        <button>지도에 적용</button>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

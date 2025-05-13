@@ -72,7 +72,8 @@
         //var x=7;
         var storeList=[]; //등록해놓은 상점들을 모아놓을 일차원 배열..
         let map;
-        let profileData; // <img src>에 넣을 바이너리를 문자열화 시킨 데이터
+        let profileData;
+        let selectedIcon;
 
         //아래의 구글 스크립트에 의해, 구글 맵이 로드가 완료되는 시점에, 
         //개발자가 미리 정의해놓은 함수를 호출해줌(콜백 방식)
@@ -91,8 +92,8 @@
                 store_name:document.getElementById("store_name").value,
                 tel:document.getElementById("tel").value,
                 pos:document.getElementById("pos").value, 
-                profileImg:profileData,
-                iconImg:document.getElementById("icon").value
+                profileImg:profileData, 
+                iconImg:selectedIcon
             };
             //한개의 상점을 배열에 담기 
             storeList.push(store);
@@ -116,66 +117,13 @@
                 position: pos,
                 animation:google.maps.Animation.BOUNCE, 
                 icon:{
-                    url:document.getElementById("icon").value,
+                    url:selectedIcon,
                     scaledSize:new google.maps.Size(45,45)
                 }
             });
 
             //생성된 마커를 어느 맵 객체에 적용할지 결정
             marker.setMap(map);
-
-            
-            //마커이벤트
-            google.maps.event.addListener(marker, 'click' ,function() {
-                //새창 띄우기
-                let infowindow = new google.maps.InfoWindow({
-                    content:"여기 맛있어요"
-                });
-                infowindow.open(map,marker);
-
-                map.setZoom(18);
-                map.setCenter(marker.getPosition());//마커를 중심으로 한 시점 이동 
-            });            
-        }
-
-        //맛집 하나를 등록하려면, 객체1개가 필요하므로, js객체 리터럴을 사용해보자
-        function registAll(obj){
-            console.log("넘겨받은 데이터객체는 ", obj);
-
-            //지도에 마커 출력 
-            for(let i=0;i<obj.storeList.length;i++){
-                let store = obj.storeList[i];//한 상점씩 꺼내기
-
-                let latiLongi=store.pos.split(",");
-                console.log(latiLongi);
-
-                let pos=new google.maps.LatLng(parseFloat(latiLongi[0]), parseFloat(latiLongi[1]));
-                let marker = new google.maps.Marker({
-                    position: pos,
-                    animation:google.maps.Animation.BOUNCE, 
-                    icon:{
-                        url:store.iconImg,
-                        scaledSize:new google.maps.Size(45,45)
-                    }
-                });
-
-                //생성된 마커를 어느 맵 객체에 적용할지 결정
-                marker.setMap(map);
-
-                
-                //마커이벤트
-                google.maps.event.addListener(marker, 'click' ,function() {
-                    //새창 띄우기
-                    let infowindow = new google.maps.InfoWindow({
-                        content:store.store_name
-                    });
-                    infowindow.open(map,marker);
-
-                    map.setZoom(18);
-                    map.setCenter(marker.getPosition());//마커를 중심으로 한 시점 이동 
-                });            
-
-            }
         }
 
         //지금까지 누적된 가게들의 목록을 새창으로 보여주기 
@@ -203,37 +151,26 @@
                 //크롬 브라우저가 이미지 바이너리를 문자열화 시켜놓은 결과물(개발자 배려)
                 //을 img.src에 대입해버리면 된다...
                 document.getElementById("preview").src=data.target.result;
-                profileData = data.target.result;
+                profileData=data.target.result;
             }
             reader.readAsDataURL(e.target.files[0]);//파일 읽기
             //console.log(e);
 
         }
-        
-        //일괄 등록용 새창을 띄워서, 메모장을 선택하게 한후, 적용을 누르면 
-        //지도에 마커와 정보가 출력..
-        function batchRegist(){
-            let url="regist.html";
-            let name="pop";
-            let options="width=500px, height=500px";
-
-            window.open(url, name, options);
-        }
 
         addEventListener("load", function(){
-
 
             //대표 사진 파일 선택했을때..
             document.getElementById("profile").addEventListener("change", function(e){
                 previewImg(e);
             });
 
-            document.querySelector("#aside_regist :nth-child(7)").addEventListener("click", function(){
-                regist();
+            document.getElementById("icon").addEventListener("change", function(e){
+                selectedIcon = this.value;
             });
 
-            document.querySelector("#aside_regist :nth-child(8)").addEventListener("click", function(){
-                batchRegist();
+            document.querySelector("#aside_regist :nth-child(7)").addEventListener("click", function(){
+                regist();
             });
 
             document.querySelector("#aside_regist :nth-child(9)").addEventListener("click", function(){
@@ -254,10 +191,10 @@
             <input type="file" id="profile"> 
             <img id="preview">
             <select id="icon">
-                <option value="../../images/map/bar.png">사탕지팡이</option>
-                <option value="../../images/map/bell.png">징글벨</option>
+                <option value="../../images/map/bar.png">지팡이</option>
+                <option value="../../images/map/bell.png">종</option>
                 <option value="../../images/map/burger.png">햄버거</option>
-                <option value="../../images/map/santa.png">산타클로스</option>
+                <option value="../../images/map/santa.png">산타</option>
                 <option value="../../images/map/smile.png">스마일</option>
             </select>
             <button>등록</button>

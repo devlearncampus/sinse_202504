@@ -1,0 +1,60 @@
+{
+    "storeList" : [
+        {
+            "store_name" : "외고집 설렁탕", 
+            "tel" : "02-335-888", 
+            "pos" : "37.51116, 127.0541",
+            "iconImg" : "../../images/map/bar.png" 
+        },
+        {
+            "store_name" : "모도우 삼성", 
+            "tel" : "02-335-7777", 
+            "pos" : "37.50998, 127.0577",
+            "iconImg" : "../../images/map/bell.png" 
+        },
+        {
+            "store_name" : "모모베이글", 
+            "tel" : "02-335-9999", 
+            "pos" : "37.50973, 127.0547",
+            "iconImg" : "../../images/map/burger.png" 
+        },
+        {
+            "store_name" : "초밥집 다시마", 
+            "tel" : "02-335-7759", 
+            "pos" : "37.50963, 127.0543",
+            "iconImg" : "../../images/map/santa.png" 
+        },
+        {
+            "store_name" : "신전떡볶이", 
+            "tel" : "02-335-1111", 
+            "pos" : "37.50977, 127.0543",
+            "iconImg" : "../../images/map/smile.png" 
+        },
+        {
+            "store_name" : "파리바게뜨", 
+            "tel" : "02-335-0000", 
+            "pos" : "37.50979, 127.0546",
+            "iconImg" : "../../images/map/bar.png" 
+        },
+        {
+            "store_name" : "남도밥상", 
+            "tel" : "02-335-1234", 
+            "pos" : "37.50989, 127.0540",
+            "iconImg" : "../../images/map/santa.png" 
+        },
+        {
+            "store_name" : "멕시카나치킨", 
+            "tel" : "02-335-1234", 
+            "pos" : "37.50980, 127.0542",
+            "iconImg" : "../../images/map/smile.png" 
+        },
+        {
+            "store_name" : "파리돈까스", 
+            "tel" : "02-335-1234", 
+            "pos" : "37.50970, 127.0532",
+            "iconImg" : "../../images/map/santa.png" 
+        }
+    ]
+
+}
+
