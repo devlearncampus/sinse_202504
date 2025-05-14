@@ -1,0 +1,1041 @@
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> --SQLPLUS ¸í·É¾î Áß ÇÑÆäÀÌÁö´ç ¸î°³ÀÇ ·¹ÄÚµå¸¦ ¼ö¿ëÇÒÁö¸¦ °áÁ¤
+SQL> --ÇÏ´Â ¸í·É¾î (Åø ¸í·É¾î)
+SQL> SET  PAGESIZE 20
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> --Å×ÀÌºíÀÇ µ¥ÀÌÅÍ°¡ ¾Æ´Ï¶ó Å×ÀÌºíÀÇ ±¸Á¶¸¦ º¸´Â ¹æ¹ý
+SQL> DESC EMP;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                             NOT NULL NUMBER
+ ENAME                                                                                                                      VARCHAR2(10)
+ JOB                                                                                                                        VARCHAR2(9)
+ MGR                                                                                                                        NUMBER
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER
+ COMM                                                                                                                       NUMBER
+ DEPTNO                                                                                                                     NUMBER
+
+SQL> desc dept;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPTNO                                                                                                            NOT NULL NUMBER
+ DNAME                                                                                                                      VARCHAR2(14)
+ LOC                                                                                                                        VARCHAR2(13)
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                                                                             
+---------- ---------------------------- --------------------------                                                                                                                                      
+        10 ACCOUNTING                   NEW YORK                                                                                                                                                        
+        20 RESEARCH                     DALLAS                                                                                                                                                          
+        30 SALES                        CHICAGO                                                                                                                                                         
+        40 OPERATIONS                   BOSTON                                                                                                                                                          
+
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> --ÇöÀç °èÁ¤ÀÌ º¸À¯ÇÑ Å×ÀÌºí Á¶È¸
+SQL> --µñ¼Å³Ê¸® Á¶È¸
+SQL> SELECT table_name from dba_tables;
+SELECT table_name from dba_tables
+                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+------------------------------------------------------------                                                                                                                                            
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+TEST                                                                                                                                                                                                    
+CUSTOMER                                                                                                                                                                                                
+OWNER                                                                                                                                                                                                   
+ANIMALTYPE                                                                                                                                                                                              
+PET                                                                                                                                                                                                     
+
+7 rows selected.
+
+SQL> --º¸À¯ÇÑ ½ÃÄö½ºµéÀ» Á¶È¸
+SQL> select sequence_name from user_sequences;
+
+SEQUENCE_NAME                                                                                                                                                                                           
+------------------------------------------------------------                                                                                                                                            
+SEQ_ANIMALTYPE                                                                                                                                                                                          
+SEQ_CUSTOMER                                                                                                                                                                                            
+SEQ_OWNER                                                                                                                                                                                               
+SEQ_PET                                                                                                                                                                                                 
+
+SQL> --µ¿¹° Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù
+SQL> desc animaltype;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ANIMALTYPE_ID                                                                                                     NOT NULL NUMBER
+ TYPE_NAME                                                                                                                  VARCHAR2(25)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into animaltype(animaltype_id, type_name)
+  2* values(seq_animaltype.nextval, 'ì›ìˆ­ì´')
+SQL> /
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into animaltype(animaltype_id, type_name)
+  2* values(seq_animaltype.nextval, 'monkey')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into animaltype(animaltype_id, type_name)
+  2* values(seq_animaltype.nextval, 'dog')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into animaltype(animaltype_id, type_name)
+  2* values(seq_animaltype.nextval, 'cat')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into animaltype(animaltype_id, type_name)
+  2* values(seq_animaltype.nextval, 'horse')
+SQL> /
+
+1 row created.
+
+SQL> select * from animaltype;
+
+ANIMALTYPE_ID TYPE_NAME                                                                                                                                                                                 
+------------- --------------------------------------------------                                                                                                                                        
+            1 monkey                                                                                                                                                                                    
+            2 dog                                                                                                                                                                                       
+            3 cat                                                                                                                                                                                       
+            4 horse                                                                                                                                                                                     
+
+SQL> commit;
+
+Commit complete.
+
+SQL> --º¸È£ÀÚ Á¤º¸ ÀÔ·Â
+SQL> desc owner;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ OWNER_ID                                                                                                          NOT NULL NUMBER
+ OWNER_NAME                                                                                                                 VARCHAR2(20)
+ PHONE                                                                                                                      VARCHAR2(20)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert  into owner(owner_id, owner_name,phone)
+  2* values(seq_owner.nextval, 'Adams', '010-2222-3333')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert  into owner(owner_id, owner_name,phone)
+  2* values(seq_owner.nextval, 'Scott', '010-567-9090')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert  into owner(owner_id, owner_name,phone)
+  2* values(seq_owner.nextval, 'King', '010-8888-7788')
+SQL> /
+
+1 row created.
+
+SQL> select * from owner;
+
+  OWNER_ID OWNER_NAME                               PHONE                                                                                                                                               
+---------- ---------------------------------------- ----------------------------------------                                                                                                            
+         1 Adams                                    010-2222-3333                                                                                                                                       
+         2 Scott                                    010-567-9090                                                                                                                                        
+         3 King                                     010-8888-7788                                                                                                                                       
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc pet;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PET_ID                                                                                                            NOT NULL NUMBER
+ PET_NAME                                                                                                                   VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+ OWNER_ID                                                                                                                   NUMBER
+ ANIMALTYPE_ID                                                                                                              NUMBER
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into pet(pet_id, pet_name, age, owner_id,animaltype_id)
+  2* values(seq_pet.nextval, 'jjanga',3, 1, 3)
+SQL> /
+
+1 row created.
+
+SQL> select * from pet;
+
+    PET_ID PET_NAME                                        AGE   OWNER_ID ANIMALTYPE_ID                                                                                                                 
+---------- ---------------------------------------- ---------- ---------- -------------                                                                                                                 
+         1 jjanga                                            3          1             3                                                                                                                 
+
+SQL> --Á¤±ÔÈ­¿¡ ÀÇÇØ Å×ÀÌºíÀ» ºÐ¸®´Â Àß ½ÃÄ×À¸³ª, ¸·»ó
+SQL> --Å×ÀÌºí Á¶È¸ÇÏ¸é fk °ªÀÌ ¹ºÁö ¾Ë¼ö°¡ ¾ø´Ù .
+SQL> --µû¶ó¼­ ¸¶Ä¡ ÇÏ³ªÀÇ Å×ÀÌºí Ã³·³ ·¹ÄÚµå¸¦ °¡»óÀ¸·Î Á¶È¸
+SQL> --Á¶ÀÎÀÌ¶ó ÇÑ´Ù
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select *
+  2  from pet p, owner o
+  3* where  p.owner_id = p.owner_id
+SQL> /
+
+    PET_ID PET_NAME                                        AGE   OWNER_ID ANIMALTYPE_ID   OWNER_ID OWNER_NAME                               PHONE                                                       
+---------- ---------------------------------------- ---------- ---------- ------------- ---------- ---------------------------------------- ----------------------------------------                    
+         1 jjanga                                            3          1             3          1 Adams                                    010-2222-3333                                               
+         1 jjanga                                            3          1             3          2 Scott                                    010-567-9090                                                
+         1 jjanga                                            3          1             3          3 King                                     010-8888-7788                                               
+
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select deptno, count(deptno) from dept
+SQL> /
+select deptno, count(deptno) from dept
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select deptno,count(deptno) from dept group by deptno;
+
+    DEPTNO COUNT(DEPTNO)                                                                                                                                                                                
+---------- -------------                                                                                                                                                                                
+        10             1                                                                                                                                                                                
+        20             1                                                                                                                                                                                
+        30             1                                                                                                                                                                                
+        40             1                                                                                                                                                                                
+
+SQL> select deptno,count(*) from dept group by deptno;
+
+    DEPTNO   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        10          1                                                                                                                                                                                   
+        20          1                                                                                                                                                                                   
+        30          1                                                                                                                                                                                   
+        40          1                                                                                                                                                                                   
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select d.deptno,count(*) 
+  2  from emp e, dept d
+  3* group by d.deptno
+SQL> /
+
+    DEPTNO   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        10         14                                                                                                                                                                                   
+        20         14                                                                                                                                                                                   
+        30         14                                                                                                                                                                                   
+        40         14                                                                                                                                                                                   
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select d.deptno,count(e.empno) 
+  2  from emp e, dept d
+  3* group by d.deptno
+SQL> /
+
+    DEPTNO COUNT(E.EMPNO)                                                                                                                                                                               
+---------- --------------                                                                                                                                                                               
+        10             14                                                                                                                                                                               
+        20             14                                                                                                                                                                               
+        30             14                                                                                                                                                                               
+        40             14                                                                                                                                                                               
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select d.deptno,count(empno) 
+  2  from emp e, dept d
+  3  where e.deptno=d.deptno
+  4* group by d.deptno
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+        20            5                                                                                                                                                                                 
+        10            3                                                                                                                                                                                 
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select d.deptno,count(empno) 
+  2  from emp e, dept d
+  3  where e.deptno=d.deptno
+  4  group by d.deptno
+  5* having count(empno)> 5
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select d.deptno,count(empno) 
+  2  from emp e, dept d
+  3  where e.deptno=d.deptno
+  4  group by d.deptno
+  5* having count(empno)> 5
+SQL> select count(*) from emp where deptno=(select deptno from emp where ename='SMITH');
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* GROUP BY E.DEPTNO
+SQL> /
+SELECT COUNT(EMPNO), DEPTNO
+                     *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+SELECT COUNT(EMPNO), DEPTNO
+                     *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+           5         20                                                                                                                                                                                 
+           3         10                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO)> (  
+  6  	select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  7* )
+SQL> /
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  -- ê° ë¶€ì„œë³„ ì‚¬ì› ìˆ˜ë¥¼ êµ¬í•˜ë˜, SMITHê°€ ì†í•œ ë¶€ì„œì˜ ì‚¬ì› ìˆ˜ë³´ë‹¤ ì‚¬ì›ìˆ˜ê°€ ë§Žì€ ë¶€ì„œ
+
+  2  SELECT  D.DEPTNO
+  3  FROM EMP E, DEPT D
+  4  WHERE E.DEPTNO=D.DEPTNO
+  5  GROUP BY D.DEPTNO
+  6  HAVING COUNT(EMPNO)> (  
+  7               --SMITH ê°€ ì†í•œ ë¶€ì„œì˜ ì‚¬ì›ìˆ˜ 
+  8  	select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9* )
+ 10  /
+-- ê° ë¶€ì„œë³„ ì‚¬ì› ìˆ˜ë¥¼ êµ¬í•˜ë˜, SMITHê°€ ì†í•œ ë¶€ì„œì˜ ì‚¬ì› ìˆ˜ë³´ë‹¤ ì‚¬ì›ìˆ˜ê°€ ë§Žì€ ë¶€ì„œ
+
+*
+ERROR at line 1:
+ORA-24374: define not done before fetch or execute and fetch 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT  D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO)> (  
+  6  	select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  7* )
+SQL> /
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM DEPTNO=(
+  3  	SELECT  D.DEPTNO
+  4  	FROM EMP E, DEPT D
+  5  	WHERE E.DEPTNO=D.DEPTNO
+  6  	GROUP BY D.DEPTNO
+  7  	HAVING COUNT(EMPNO)> (  
+  8  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9  	)
+ 10* )
+ 11  /
+FROM DEPTNO=(
+           *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM DEPTNO= (
+  3  	SELECT  D.DEPTNO
+  4  	FROM EMP E, DEPT D
+  5  	WHERE E.DEPTNO=D.DEPTNO
+  6  	GROUP BY D.DEPTNO
+  7  	HAVING COUNT(EMPNO)> (  
+  8  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9  	)
+ 10* )
+SQL> /
+FROM DEPTNO= (
+           *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM WHERE DEPTNO= (
+  3  	SELECT  D.DEPTNO
+  4  	FROM EMP E, DEPT D
+  5  	WHERE E.DEPTNO=D.DEPTNO
+  6  	GROUP BY D.DEPTNO
+  7  	HAVING COUNT(EMPNO)> (  
+  8  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9  	)
+ 10* )
+SQL> /
+FROM WHERE DEPTNO= (
+     *
+ERROR at line 2:
+ORA-00903: invalid table name 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM DEPT 
+  3  WHERE DEPTNO= (
+  4  	SELECT  D.DEPTNO
+  5  	FROM EMP E, DEPT D
+  6  	WHERE E.DEPTNO=D.DEPTNO
+  7  	GROUP BY D.DEPTNO
+  8  	HAVING COUNT(EMPNO)> (  
+  9  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+ 10  	)
+ 11* )
+SQL> /
+
+    DEPTNO DNAME                        LOC                                                                                                                                                             
+---------- ---------------------------- --------------------------                                                                                                                                      
+        30 SALES                        CHICAGO                                                                                                                                                         
+
+SQL> SELECT * FROM EMP WHERE DEPTNO=30;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT  D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO)> (
+  6  	select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  7  )
+  8* )
+  9  /
+)
+*
+ERROR at line 8:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT  D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
+  5  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  6  	)
+  7* )
+SQL> /
+)
+*
+ERROR at line 7:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT  D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
+  5  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  6* 	)
+  7  /
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  WHERE DEPTNO = (
+  3  SELECT  D.DEPTNO
+  4  FROM EMP E, DEPT D
+  5  WHERE E.DEPTNO=D.DEPTNO
+  6  GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
+  7  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  8  	)
+  9* )
+ 10  /
+WHERE DEPTNO = (
+*
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM DEPT 
+  3  WHERE DEPTNO = (
+  4  SELECT  D.DEPTNO
+  5  FROM EMP E, DEPT D
+  6  WHERE E.DEPTNO=D.DEPTNO
+  7  GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
+  8  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9  	)
+ 10* )
+SQL> /
+
+    DEPTNO DNAME                        LOC                                                                                                                                                             
+---------- ---------------------------- --------------------------                                                                                                                                      
+        30 SALES                        CHICAGO                                                                                                                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC 
+  2  FROM DEPT 
+  3  WHERE DEPTNO = (
+  4  SELECT  D.DEPTNO
+  5  FROM EMP E, DEPT D
+  6  WHERE E.DEPTNO=D.DEPTNO
+  7  GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
+  8  		select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
+  9  	)
+ 10* )
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, HIREDATE, D.DEPTNO,DNAME,LOC
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  AND HIREDATE > (SELECT HIREDATE FROM EMP WHERE ENAME='FORD')
+  5* ORDER BY HIREDATE ASC
+SQL> /
+
+     EMPNO ENAME                HIREDATE     DEPTNO DNAME                        LOC                                                                                                                    
+---------- -------------------- -------- ---------- ---------------------------- --------------------------                                                                                             
+      7934 MILLER               82/01/23         10 ACCOUNTING                   NEW YORK                                                                                                               
+      7788 SCOTT                87/04/19         20 RESEARCH                     DALLAS                                                                                                                 
+      7876 ADAMS                87/05/23         20 RESEARCH                     DALLAS                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, HIREDATE, D.DEPTNO,DNAME,LOC
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  AND HIREDATE > (SELECT HIREDATE FROM EMP WHERE ENAME='FORD')
+  5* ORDER BY HIREDATE ASC
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) , DNAME
+  2  FROM DEPT 
+  3* GROUP BY DEPTNO
+SQL> /
+SELECT COUNT(*) , DNAME
+                  *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) , DEPTNO
+  2  FROM DEPT 
+  3* GROUP BY DEPTNO
+SQL> /
+
+  COUNT(*)     DEPTNO                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+         1         10                                                                                                                                                                                   
+         1         20                                                                                                                                                                                   
+         1         30                                                                                                                                                                                   
+         1         40                                                                                                                                                                                   
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(D.DEPTNO), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3* WHERE E.DEPTNO=D.DEPTNO
+  4  /
+SELECT COUNT(D.DEPTNO), D.DEPTNO
+                        *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+  COUNT(*)     DEPTNO                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+         6         30                                                                                                                                                                                   
+         5         20                                                                                                                                                                                   
+         3         10                                                                                                                                                                                   
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO RIGHT OUTER JOIN D.DEPTNO
+  4  ON E.DEPTNO=D.DEPTNO
+  5* GROUP BY D.DEPTNO
+SQL> /
+WHERE E.DEPTNO RIGHT OUTER JOIN D.DEPTNO
+               *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*), D.DEPTNO
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+  COUNT(*)     DEPTNO                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+         6         30                                                                                                                                                                                   
+         5         20                                                                                                                                                                                   
+         1         40                                                                                                                                                                                   
+         3         10                                                                                                                                                                                   
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+           5         20                                                                                                                                                                                 
+           0         40                                                                                                                                                                                 
+           3         10                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC, DEPTNO, ENAME
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D 
+  3* ON E.DEPTNO=D.DEPTNO
+SQL> /
+SELECT DEPTNO, DNAME, LOC, DEPTNO, ENAME
+                           *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, DNAME, LOC, EMPNO, ENAME
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D 
+  3* ON E.DEPTNO=D.DEPTNO
+SQL> /
+
+    DEPTNO DNAME                        LOC                             EMPNO ENAME                                                                                                                     
+---------- ---------------------------- -------------------------- ---------- --------------------                                                                                                      
+        20 RESEARCH                     DALLAS                           7369 SMITH                                                                                                                     
+        30 SALES                        CHICAGO                          7499 ALLEN                                                                                                                     
+        30 SALES                        CHICAGO                          7521 WARD                                                                                                                      
+        20 RESEARCH                     DALLAS                           7566 JONES                                                                                                                     
+        30 SALES                        CHICAGO                          7654 MARTIN                                                                                                                    
+        30 SALES                        CHICAGO                          7698 BLAKE                                                                                                                     
+        10 ACCOUNTING                   NEW YORK                         7782 CLARK                                                                                                                     
+        20 RESEARCH                     DALLAS                           7788 SCOTT                                                                                                                     
+        10 ACCOUNTING                   NEW YORK                         7839 KING                                                                                                                      
+        30 SALES                        CHICAGO                          7844 TURNER                                                                                                                    
+        20 RESEARCH                     DALLAS                           7876 ADAMS                                                                                                                     
+        30 SALES                        CHICAGO                          7900 JAMES                                                                                                                     
+        20 RESEARCH                     DALLAS                           7902 FORD                                                                                                                      
+        10 ACCOUNTING                   NEW YORK                         7934 MILLER                                                                                                                    
+        40 OPERATIONS                   BOSTON                                                                                                                                                          
+
+15 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, DNAME, LOC, EMPNO, ENAME
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D 
+  3* ON E.DEPTNO=D.DEPTNO
+SQL> SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO=D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO)>5;
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM EMP E, DEPT D
+  3* WHERE E.DEPTNO=D.DEPTNO
+SQL> /
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                              
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                  
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                  
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         10 ACCOUNTING                   NEW YORK                                                
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         20 RESEARCH                     DALLAS                                                  
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         10 ACCOUNTING                   NEW YORK                                                
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         30 SALES                        CHICAGO                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         20 RESEARCH                     DALLAS                                                  
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         30 SALES                        CHICAGO                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         20 RESEARCH                     DALLAS                                                  
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         10 ACCOUNTING                   NEW YORK                                                
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* GROUP BY  D.DEPTNO
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+        20            5                                                                                                                                                                                 
+        10            3                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY  D.DEPTNO
+  5* HAVING  COUNT(EMPNO) >=5
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+        20            5                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO AS ë¶€ì„œë²ˆí˜¸, COUNT(EMPNO) AS ì†Œì†ì‚¬ì›ìˆ˜
+
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY  D.DEPTNO
+  5* HAVING  COUNT(EMPNO) >=5
+SQL> /
+SELECT D.DEPTNO AS ë¶€ì„œë²ˆí˜¸, COUNT(EMPNO) AS ì†Œì†ì‚¬ì›ìˆ˜
+
+                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO , COUNT(EMPNO)
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  GROUP BY  D.DEPTNO
+  5* HAVING  COUNT(EMPNO) >=5
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+        20            5                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) FROM EMP
+  2  WHERE DEPTNO=(
+  3    SELECT DEPTNO FROM EMP WHERE ENAME='SMITH'
+  4* )
+  5  
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E, DEPT D
+  3  WHERE  E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+           5         20                                                                                                                                                                                 
+           3         10                                                                                                                                                                                 
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(EMPNO), D.DEPTNO
+  2  FROM EMP E  INNER JOIN  DEPT D
+  3  ON  E.DEPTNO=D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+           5         20                                                                                                                                                                                 
+           3         10                                                                                                                                                                                 
+
+SQL> SPOOL OFF

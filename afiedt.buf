@@ -1,4 +1,5 @@
-select *
-from pet p, owner o
-where  p.owner_id = p.owner_id
+SELECT COUNT(EMPNO), D.DEPTNO
+FROM EMP E  INNER JOIN  DEPT D
+ON  E.DEPTNO=D.DEPTNO
+GROUP BY D.DEPTNO
 /
