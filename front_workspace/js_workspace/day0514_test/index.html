@@ -19,12 +19,14 @@
     <script src="./js/Hero.js"></script>
     <script src="./js/Enemy.js"></script>
     <script src="./js/Bullet.js"></script>
+    <script src="../lib/common.js"></script>
     <script>
         let bgX=0;
         let st;//기존의 루프를 보관해놓고, 유저가 또다시 루프를 시도하면
                 //기존 루프는 제거하고 새로 시도한 루프로 대체...
         let hero;
-        let bulletArray=[];//총알을 담게될 배열 
+        let bulletArray=[];//총알을 담게 될 배열 
+        let enemyArray=[]; //적군을 담게 될 배경
 
         function bgEffect(){
             let stage=document.getElementById("stage");
@@ -87,9 +89,18 @@
             //container, src, x, y,width, height, velX,velY
             hero = new Hero(document.getElementById("stage"), "../../images/plane/plane.png", 100,200, 55,50,0,0);
         }
+        
+        function createEnemy(){
+            //적군은 여러마리이고, 각 적군마다 tick(), render() 호출되어야 하므로
+            //반복문으로 처리하려면 배열로 존재시켜야 한다 
+            for(let i=0;i<5;i++){
+                enemyArray.push(new Enemy(document.getElementById("stage"), "../../images/plane/e"+(i+1)+".png"), 1200, 100*i, 65,55,-5,0);
+            }
+        }
 
         function init(){
             createHero();//주인공 등장
+            createEnemy();//적군 등장 
 
             //키보드 이벤트 구현
             addEventListener("keydown", function(e){                
