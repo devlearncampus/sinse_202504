@@ -94,7 +94,7 @@
             //적군은 여러마리이고, 각 적군마다 tick(), render() 호출되어야 하므로
             //반복문으로 처리하려면 배열로 존재시켜야 한다 
             for(let i=0;i<5;i++){
-                enemyArray.push(new Enemy(document.getElementById("stage"), "../../images/plane/e"+(i+1)+".png"), 1200, 100*i, 65,55,-5,0);
+                enemyArray.push(new Enemy(document.getElementById("stage"), "../../images/plane/e"+(i+1)+".png", 1200, 100*i, 65,55,-5,0));
             }
         }
 

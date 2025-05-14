@@ -13,6 +13,18 @@
             background-image: url(../../images/plane/bg.jpg);
             background-size: 1500px 576px;
             position: relative;
+            overflow: hidden;
+        }
+        #score{
+            position: absolute;
+            left:30px;
+            top:0px;
+            color:yellow;
+            font-weight: bold;
+            font-size:27px;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
         }
     </style>
     <script src="./js/GameObject.js"></script>
@@ -27,6 +39,13 @@
         let hero;
         let bulletArray=[];//총알을 담게 될 배열 
         let enemyArray=[]; //적군을 담게 될 배경
+        let total=0; //점수 
+
+        //필요한 시점에 이 함수를 호출하면, 점수 계산해줌, 화면에 출력
+        function setScore(n){
+            total+=n;
+            document.getElementById("score").innerText=total;
+        }
 
         function bgEffect(){
             let stage=document.getElementById("stage");
@@ -35,7 +54,7 @@
 
         //총알 발사 
         function fire(){
-            let bullet = new Bullet(document.getElementById("stage"), "../../images/plane/ball.png", hero.x, hero.y, 25,20, 3,0);
+            let bullet = new Bullet(document.getElementById("stage"), "../../images/plane/ball.png", hero.x, hero.y, 25,20, 10,0);
             bulletArray.push(bullet);//배열에 추가!!
         }
 
@@ -53,6 +72,12 @@
                 bulletArray[i].tick();
                 bulletArray[i].render();
             }
+
+            //적군 움직이기 
+            for(let i=0;i<enemyArray.length;i++){
+                enemyArray[i].tick();
+                enemyArray[i].render();
+            }         
         }
 
         function setLoop(){
@@ -94,7 +119,7 @@
             //적군은 여러마리이고, 각 적군마다 tick(), render() 호출되어야 하므로
             //반복문으로 처리하려면 배열로 존재시켜야 한다 
             for(let i=0;i<5;i++){
-                enemyArray.push(new Enemy(document.getElementById("stage"), "../../images/plane/e"+(i+1)+".png"), 1200, 100*i, 65,55,-5,0);
+                enemyArray.push(new Enemy(document.getElementById("stage"), "../../images/plane/e"+(i+1)+".png", 1200, 100*i, 65,55,-5,0));
             }
         }
 
@@ -109,7 +134,7 @@
             addEventListener("keyup", function(e){                
                 handleStop(e);
             });
-
+            setScore(0);
         }
 
         addEventListener("load", function(){
@@ -118,6 +143,8 @@
     </script>
 </head>
 <body>
-    <div id="stage"></div>
+    <div id="stage">
+        <div id="score">50</div>
+    </div>
 </body>
 </html>
