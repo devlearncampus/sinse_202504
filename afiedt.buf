@@ -1,4 +1,4 @@
-SELECT  ENAME, SAL, DNAME, LOC
-FROM  EMP , DEPT
-WHERE EMP.DEPTNO=DEPT.DEPTNO
+select *
+from pet p, owner o
+where  p.owner_id = p.owner_id
 /
