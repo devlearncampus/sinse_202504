@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin: 0;}
+        #stage{
+            width: 1200px;
+            height: 576px;
+            margin: auto;
+            background-image: url(../../images/plane/bg.jpg);
+            background-size: 1500px 576px;
+            position: relative;
+        }
+    </style>
+    <script src="./js/GameObject.js"></script>
+    <script src="./js/Hero.js"></script>
+    <script src="./js/Enemy.js"></script>
+    <script src="./js/Bullet.js"></script>
+    <script>
+        let bgX=0;
+        let st;//기존의 루프를 보관해놓고, 유저가 또다시 루프를 시도하면
+                //기존 루프는 제거하고 새로 시도한 루프로 대체...
+        let hero;
+        let bulletArray=[];//총알을 담게될 배열 
+
+        function bgEffect(){
+            let stage=document.getElementById("stage");
+            stage.style.backgroundPosition=`${bgX--}px 0px`;
+        }
+
+        //총알 발사 
+        function fire(){
+            let bullet = new Bullet(document.getElementById("stage"), "../../images/plane/ball.png", hero.x, hero.y, 25,20, 7,0);
+            bulletArray.push(bullet);//배열에 추가!!
+        }
+
+        function gameLoop(){
+            bgEffect();
+
+            //끊임없는 주인공의 tick(),render()
+            hero.tick();
+            hero.render();
+
+            //화면에 등장하는 모든 총알을 대상으로  tick(), render() 
+            //총알은 여러개 이므로, 반복문으로  tick(),render()로 호출하려면 
+            //개성잇는 변수명보다는 배열로 가리키자!!
+            for(let i=0;i<bulletArray.length;i++){
+                bulletArray[i].tick();
+                bulletArray[i].render();
+            }
+        }
+
+        function setLoop(){
+            //아무런 루프가 없을때만 새로운 루프를 시작
+            if(st ==undefined){
+                st=setInterval(gameLoop , 10);
+            }else{
+                clearInterval(st);
+                st=undefined;
+            }
+        }
+        
+        function handleMove(e){
+            switch(e.keyCode){
+                case 37:hero.velX=-5;break; //좌측으로 움직임
+                case 39:hero.velX=5 ;break; //우측으로 움직임
+                case 38:hero.velY=-5 ;break; //위로 움직임
+                case 40:hero.velY=5 ;break; //아래로 움직임
+                case 32:fire() ;break; //총알 발사
+                case 27:setLoop() ;break; // pause 여부
+            }
+        }
+
+        function handleStop(e){
+            switch(e.keyCode){
+                case 37:hero.velX=0;break; //좌측으로 움직임
+                case 39:hero.velX=0 ;break; //우측으로 움직임
+                case 38:hero.velY=0 ;break; //위로 움직임
+                case 40:hero.velY=0 ;break; //아래로 움직임
+            }
+        }
+        
+        function createHero(){
+            //container, src, x, y,width, height, velX,velY
+            hero = new Hero(document.getElementById("stage"), "../../images/plane/plane.png", 100,200, 55,50,0,0);
+        }
+
+        function init(){
+            createHero();//주인공 등장
+
+            //키보드 이벤트 구현
+            addEventListener("keydown", function(e){                
+                handleMove(e);
+            });
+            addEventListener("keyup", function(e){                
+                handleStop(e);
+            });
+
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="stage"></div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+[ JS ]
+1.클래스 vs 객체형 리터럴
+2.JSON 문자열 
+3.내장객체
+   - Array 
+   - Date 
+   - String 
+   - JSON
+
+[ Java ] 
+1.API Document 
+   javadoc.exe 
+2.캡슐화 
+3.Has a 관계 
+
+[ Oracle ] 
+1.Foreign key 
+2.ERD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
