@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 1250px;
+            height: 700px;
+            background-color: aquamarine;
+            margin: auto;
+        }
+        #aside{
+            width: 150px;
+            height: 100%;
+            background-color: beige;
+            float:left;
+        }
+        #aside *{
+            width: 90%;
+        }
+        #content{
+            width: 1100px;
+            height: 100%;
+            background-color: rgb(67, 123, 123);
+            float: left;
+            background-image: url(../../images/bene.webp);
+            background-size: 1100px 700px;      
+            position: relative;      
+        }
+
+    </style>
+    <script src="./js/Word.js"></script>
+    <script src="../lib/common.js"></script>
+    <script>
+        let wordArray; //프로그램이 종료될때까지 총 4레벨까지 게임 가능한 데이터
+                            //베이스를 담고 있을 전역변수
+
+        //프로그래밍 언어에서 메모장의 데이터를 바로 사용할 수없으므로, 
+        //메모장 파일을 읽어들여, 그 결과물인 JSON문자열을 파싱한 후, 객체로 반환
+        //받아서 사용하자, 단 js가 파일에 대한 접근은 불가능하므로, 크롬브라우저가
+        //사용자에게 수락을 받은 그 결과를 얻와와서 처리해야 함...
+        function loadData(e){
+            console.log(e);
+            
+            let file = e.target.files[0]; //사용자가 수락한 그 파일...
+
+            //파일의 내용을 읽기 
+            let reader = new FileReader();
+            reader.onload=function(data){
+                console.log("메모장 읽은 결과는 ",data);
+                
+                let jsonString=data.target.result; //메모장에 작성된 바로 그 문자열들..
+                let obj=JSON.parse(jsonString);//문자열이므로, 해석해야 함(해석 결과로써 객체로 반환..)
+                
+                console.log(obj);    //js의 객체 리터럴이 출력되어야 함
+                
+                wordArray=obj.wordList;//전역변수에 보관...
+                
+                createWord();
+
+                //Start 버튼 활성화 
+                document.querySelector("button").style.disabled="enable";
+
+                /*
+                for(let i=0;i<obj.wordList.length;i++){
+                    console.log(obj.wordList[i]);            
+                }
+                */
+            }
+            reader.readAsText(file);//문서 파일이기 때문에....
+
+        }
+        
+        function createWord(){
+            let content=document.getElementById("content");
+
+            for(let i=0; i<wordArray[0].length;i++){
+                let word = new Word(content,70+(i*95), getRandomByRange(-10,-150), wordArray[0][i],"red");
+            }
+        }
+
+        function init(){
+            document.querySelector("input[type='file']").addEventListener("change", function(e){
+                loadData(e);                
+            });
+
+        }
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="aside">
+            <input type="file">
+            <button>Start!!</button>
+        </div>
+        <div id="content"></div>
+    </div>
+
+</body>
+</html>
+
+
+
+

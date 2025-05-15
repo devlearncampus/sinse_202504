@@ -6,6 +6,13 @@ function getRandom(max){
     //0보다 크고~~ 1보다 작은 난수
     return parseInt(Math.random()*(max+1)); 
 }   
+/*---------------------------------------------------
+범위를 지정한 랜덤 
+getRandomByRange(5,8)   5부터 8사이의 랜덤값 반환
+*---------------------------------------------------*/
+function getRandomByRange(min, max){
+  return min + (parseInt(Math.random()*(max-min+1)));
+}
 
 
 /*---------------------------------------------------
