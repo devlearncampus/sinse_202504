@@ -36,6 +36,8 @@
     <script>
         let wordArray; //프로그램이 종료될때까지 총 4레벨까지 게임 가능한 데이터
                             //베이스를 담고 있을 전역변수
+        let st; //interval  undefined
+        let wordList=[]; //단어 스트링 자체가 아닌, 단어 객체 인스턴스가 담겨질 배열
 
         //프로그래밍 언어에서 메모장의 데이터를 바로 사용할 수없으므로, 
         //메모장 파일을 읽어들여, 그 결과물인 JSON문자열을 파싱한 후, 객체로 반환
@@ -78,13 +80,39 @@
 
             for(let i=0; i<wordArray[0].length;i++){
                 let word = new Word(content,70+(i*95), getRandomByRange(-10,-150), wordArray[0][i],"red");
+                wordList.push(word);//배열에 인스턴스 추가하기!!
             }
+        }
+
+        function nextStep(){
+            //모든 단어를 대상으로 tick(), render() 
+            for(let i=0;i<wordList.length;i++){
+                wordList[i].tick();
+                wordList[i].render();
+            }
+        }
+
+        function gameLoop(){
+            console.log("저 gameLoop 중이에요...");
+            nextStep();//단어가 한발 한발 내려오게...
         }
 
         function init(){
             document.querySelector("input[type='file']").addEventListener("change", function(e){
                 loadData(e);                
             });
+
+            document.querySelector("#aside button").addEventListener("click", function(){
+                if(st==undefined){//가동된 인터벌이 없다면..
+                    st = setInterval(gameLoop, 800); //새롭게 가동
+                    this.innerText="Pause";
+                }else{
+                    clearInterval(st);
+                    st=undefined;//삭제 후 다시 초기화...
+                    this.innerText="Start!!";
+                }
+            });
+
 
         }
         addEventListener("load", function(){

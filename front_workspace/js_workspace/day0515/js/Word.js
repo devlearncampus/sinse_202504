@@ -19,4 +19,14 @@ class Word{
 
         this.container.appendChild(this.span);
     }
+
+    //물리량 변화
+    tick(){
+        this.y+=5;
+    }
+
+    //그래픽 처리
+    render(){ 
+        this.span.style.top=this.y+"px";
+    }
 }
