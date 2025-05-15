@@ -29,7 +29,9 @@
             background-size: 1100px 700px;      
             position: relative;      
         }
-
+        #content span{
+            background-color: yellow;
+        }
     </style>
     <script src="./js/Word.js"></script>
     <script src="../lib/common.js"></script>
@@ -38,6 +40,8 @@
                             //베이스를 담고 있을 전역변수
         let st; //interval  undefined
         let wordList=[]; //단어 스트링 자체가 아닌, 단어 객체 인스턴스가 담겨질 배열
+        let speed=600;//게임의 속도를 좌우하는 변수(레벨이 올라갈수록 숫자 감소)
+        let level=0;  // 몇번째 배열을 접근할지를 결정하는(층수 접근) 변수
 
         //프로그래밍 언어에서 메모장의 데이터를 바로 사용할 수없으므로, 
         //메모장 파일을 읽어들여, 그 결과물인 JSON문자열을 파싱한 후, 객체로 반환
@@ -78,8 +82,8 @@
         function createWord(){
             let content=document.getElementById("content");
 
-            for(let i=0; i<wordArray[0].length;i++){
-                let word = new Word(content,70+(i*95), getRandomByRange(-10,-150), wordArray[0][i],"red");
+            for(let i=0; i<wordArray[level].length;i++){
+                let word = new Word(content,70+(i*95), getRandomByRange(-10,-150), wordArray[level][i],"red");
                 wordList.push(word);//배열에 인스턴스 추가하기!!
             }
         }
@@ -89,6 +93,37 @@
             for(let i=0;i<wordList.length;i++){
                 wordList[i].tick();
                 wordList[i].render();
+            }
+        }
+
+        //단어를 알아맞추는 과정에서, wordList의 길이가 0에 도달하면, 
+        //이 판을 다 클리어했다고 판단하여, 레벨을 올려주자 
+        function checkLevel(){
+            if(wordList.length==0){
+                alert("레벨 "+(level+1)+" 통과를 축하드려요");
+                level++;
+                speed-=200;
+                createWord();
+            }
+        }
+
+        //사용자가 입력한 단어 비교해서 제거 등의 처리..
+        function checkText(obj){
+            console.log(obj);
+
+            // 화면의 배열수만큼비교..
+            for(let i=0;i<wordList.length;i++){
+                if(wordList[i].text==obj.value){
+                    wordList[i].span.style.background="blue";
+                    
+                    //제거하기 (화면에서 제거 + 배열에서도 제거)
+                    let content=document.getElementById("content");
+                    content.removeChild(wordList[i].span);
+
+                    wordList.splice(i , 1); //배열에서 제거
+
+                    checkLevel();//레벨 올려야 하는지 함수에 맡기기
+                }
             }
         }
 
@@ -104,7 +139,7 @@
 
             document.querySelector("#aside button").addEventListener("click", function(){
                 if(st==undefined){//가동된 인터벌이 없다면..
-                    st = setInterval(gameLoop, 800); //새롭게 가동
+                    st = setInterval(gameLoop, speed); //새롭게 가동
                     this.innerText="Pause";
                 }else{
                     clearInterval(st);
@@ -113,7 +148,14 @@
                 }
             });
 
-
+            document.querySelector("#aside input[type='text']").addEventListener("keyup", function(e){
+                if(e.keyCode==13){//엔터를 쳤다면..
+                    //사용자가 입력한 단어와 화면에 생존해 있는 단어 인스턴스 내부의
+                    //span의 innerText을 비교하자
+                    checkText(this);
+                    document.querySelector("#aside :nth-child(3)").value="";
+                }
+            });    
         }
         addEventListener("load", function(){
             init();
@@ -126,6 +168,9 @@
         <div id="aside">
             <input type="file">
             <button>Start!!</button>
+
+            <input type="text" placeholder="단어입력">
+
         </div>
         <div id="content"></div>
     </div>
