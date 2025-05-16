@@ -1,0 +1,15 @@
+<script src="./js/Duck.js"></script>
+<script>
+    let duckArray=[];
+
+    for(let i=0;i<10;i++){
+        duckArray.push(new Duck(i));
+    }
+
+    function gameLoop(){
+        for(let i=0;i<10;i++){
+            duckArray[i].fly();
+        }
+    }
+    gameLoop();
+</script>

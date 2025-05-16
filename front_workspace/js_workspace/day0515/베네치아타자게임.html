@@ -32,9 +32,17 @@
         #content span{
             background-color: yellow;
         }
+        #box{
+            width: 150px;
+            height: 150px;
+            background-color: aqua;
+            position: relative; /*hp 때문에..*/
+            margin-top: 20px;
+        }
     </style>
     <script src="./js/Word.js"></script>
     <script src="../lib/common.js"></script>
+    <script src="./js/HP.js"></script>
     <script>
         let wordArray; //프로그램이 종료될때까지 총 4레벨까지 게임 가능한 데이터
                             //베이스를 담고 있을 전역변수
@@ -42,6 +50,7 @@
         let wordList=[]; //단어 스트링 자체가 아닌, 단어 객체 인스턴스가 담겨질 배열
         let speed=600;//게임의 속도를 좌우하는 변수(레벨이 올라갈수록 숫자 감소)
         let level=0;  // 몇번째 배열을 접근할지를 결정하는(층수 접근) 변수
+        let hpArray=[];//HP 인스턴스를 보관할 배열 
 
         //프로그래밍 언어에서 메모장의 데이터를 바로 사용할 수없으므로, 
         //메모장 파일을 읽어들여, 그 결과물인 JSON문자열을 파싱한 후, 객체로 반환
@@ -127,6 +136,16 @@
             }
         }
 
+        //9개의 HP 인스턴스 생성하기
+        function createHP(){
+            for(let i=0;i<3;i++){
+                for(let a=0;a<3;a++){
+                    //container, x, y, width, height, bg, borderColor
+                    hpArray.push(new HP(document.getElementById("box"),a*48, i*48,48,48,"red","yellow"));
+                }
+            }
+        }
+
         function gameLoop(){
             console.log("저 gameLoop 중이에요...");
             nextStep();//단어가 한발 한발 내려오게...
@@ -155,8 +174,11 @@
                     checkText(this);
                     document.querySelector("#aside :nth-child(3)").value="";
                 }
-            });    
+            });  
+
+            createHP();//에너지 생성
         }
+
         addEventListener("load", function(){
             init();
         });
@@ -170,7 +192,7 @@
             <button>Start!!</button>
 
             <input type="text" placeholder="단어입력">
-
+            <div id="box"></div>
         </div>
         <div id="content"></div>
     </div>

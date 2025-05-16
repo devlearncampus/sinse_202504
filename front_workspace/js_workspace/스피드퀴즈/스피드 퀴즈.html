@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>스피드 퀴즈</title>
+	<style>
+		body {
+			margin: 0px;
+		}
+
+		.wrapper {
+			width: 1200px;
+			height: 700px;
+			background: url("./img/bg.jpg");
+		}
+
+		.left {
+			width: 250px;
+			height: 100%;
+			float: left;
+		}
+
+		.left select {
+			font-size: 25px;
+			margin: 10px;
+			background: #CFCFCF;
+		}
+
+		.left div {
+			margin: 5px;
+			margin-top: 0px;
+			padding-top: 0px;
+		}
+
+		#graphArea {
+			position: relative;
+		}
+
+		#center {
+			width: 700px;
+			height: 100%;
+			float: left;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#center div {
+			width: 100%;
+			height: 100%;
+			float: left;
+			position: absolute;
+			left: 0px;
+		}
+
+		#content {
+			font-size: 100px;
+			text-align: center;
+			font-weight: bold;
+			color: white;
+			top: 250px;
+		}
+
+		.right {
+			width: 250px;
+			height: 100%;
+			float: left;
+
+		}
+
+		.right h1 {
+			margin: 10px;
+			color: #CFCFCF
+		}
+
+		#buttonArea {
+			width: 250px;
+			height: 120px;
+			position: absolute;
+			top: 540px;
+			color : white;
+			font-size:0px;
+		}
+		
+		#buttonArea button {
+			width: 122px;
+			height: 80px;
+			padding: 0px;
+			margin:0px;
+			font-size: 25px;
+			border-radius: 10px;
+			float: left;
+		}
+		
+		#timerArea{
+			width:250px;
+			color:white;
+			position: absolute;
+			top:480px;
+		}
+		#timerArea input{
+			width:50px;
+		}
+	</style>
+	<script src="./js/common.js"></script>
+	<script src="./data.js"></script>
+	<script src="./js/Graph.js"></script>
+	<script src="./js/Clock.js"></script>
+	<script>
+		var startSec = 0;
+		var nowSec = 0;
+
+		var time;
+		var bt_execute;
+		var content;	// 단어 출력 영역
+		var score_area; // 점수 출력 영역
+		var sel; // 조 선택하는 셀렉박스
+		var graphArea; // 그래프 그리는 공간
+		var graphArray = [];	// 그래프 담는 배열
+		var scoreArray = [0, 0, 0, 0, 0, 0];	// 조별 점수 저장하는 배열
+		var clockArea; // 시계 표현하는 공간
+		var clockArray = [];	// 시계 표시해주는거 저장하는 배열
+		var center;
+		var inputMin, inputSec
+
+		var min = 0; // 시작 분
+		var sec = 0; // 시작 초
+		var st; // 현재 실행중인 타임 메서드
+		var flag = false; // 실행 여부를 결정짓는 논리값 변수
+		var score = 0;
+
+		function init() {
+			time = document.getElementById("time");
+			content = document.getElementById("content");
+			bt_execute = document.getElementById("bt_execute");
+			score_area = document.getElementById("score_area");
+			sel = document.getElementById("sel");
+			graphArea = document.getElementById("graphArea");
+			clockArea = document.getElementById("clockArea");
+			center = document.getElementById("center");
+			inputMin = document.getElementById("inputMin");
+			inputSec = document.getElementById("inputSec");
+
+			addOption();
+
+			graphInit();
+			clockInit();
+			getTimer();
+			startSec = nowSec = min * 60 + sec;
+			//time.innerText = getTimeString(min) + ":" + getTimeString(sec);
+			showTimeText();
+		}
+
+		function execute() {
+			flag = !flag; // 뒤집기
+
+			if (flag) {
+				st = setInterval("timeWatch()", 1000);
+				// 멈춤 텍스트 출력
+				bt_execute.innerText = "Pause";
+				pass();	// 시작버튼 누르면 단어 넘어감+
+			} else {
+				clearTimeout(st);
+				// 시작 텍스트 출력
+				bt_execute.innerText = "Start";
+			}
+		}
+
+		//시간을 처리하는 함수
+		function timeWatch() {
+			sec--;
+			nowSec--;
+			// 초에서 음수란 존재하지 않는다. 음수를 만났다는건 드디어 분이 1 감소했다는 의미 이므로, 분을 -1 해주고 초는 다시 복귀해야 한다.
+			if (sec < 0) {
+				min--;
+				sec = 59;
+			}
+
+			// 출력 내용이 음수로 표현되지 않도록, 변수값을 조정
+			if (min < 0) { // 분도 0, 초도 0에서 -1로 넘어가는 시점
+				clearTimeout(st);
+				min = 0;
+				sec = 0;
+				content.style.color = "#FFF";
+				content.innerText = "Time Over!!";
+			}
+
+			// 출력에 0을 표현하기 위해서는 문자취급해야 하므로, 출력 스트링을 조절해야 한다.
+			// 분석결과 : 10이상일경우 그냥 방치, 10보다 작은경우 맨 앞에 0을 붙여준다.
+			clockDraw();
+			showTimeText();
+
+		}
+
+		function showTimeText() {
+			time.innerText = getTimeString(min) + ":" + getTimeString(sec);
+		}
+
+		function pass() {
+			var r = getRandom(word.length);
+			content.innerText = word[r];
+		}
+
+		function next() {
+			score += 10;
+			scoreArray[sel.selectedIndex - 1] = score;
+			score_area.innerText = score + "점"
+			printGraph();	// 그래프 출력
+			pass();
+
+		}
+
+		function addOption() {
+			for (var i = 0; i < 6; i++) {
+				var op = document.createElement("option");
+				op.text = (i + 1) + "조";
+				sel.add(op);
+			}
+		}
+
+		// 처음 그래프 생성
+		function graphInit() {
+			for (var i = 0; i < 6; i++) {
+				graphArray[i] = new Graph(graphArea, scoreArray, 250, 50, i);
+			}
+		}
+
+		// 게임 진행 중 그래프 그리기
+		function printGraph() {
+			for (i = 0; i < 6; i++) {
+				graphArray[i].draw(scoreArray);
+
+			}
+		}
+
+		// 시계 초기화
+		function clockInit() {
+			for (i = 0; i < 100; i++) {
+				clockArray[i] = new Clock(clockArea, i);
+			}
+		}
+
+		function clockDraw() {
+			var per = 100 - parseInt(nowSec / startSec * 100)
+			for (var i = 0; i < per; i++) {
+				clockArray[i].turnOn();
+			}
+		}
+
+		function clockReset() {
+			for (i = 0; i < clockArray.length; i++) {
+				clockArray[i].turnOff();
+			}
+		}
+
+		function reLoadWrapper() {
+			content.innerText = "스피드 퀴즈!!";
+			score = 0;
+			score_area.innerText = "0점";
+
+			flag = false;
+			bt_execute.innerText = "Start";
+			getTimer();
+			startSec = nowSec = min * 60 + sec;
+			clearTimeout(st);
+			showTimeText();
+			clockReset();
+
+		}
+
+		// 입력한 타이머의 시간을 가져오는 함수
+		function getTimer() {
+			min = parseInt(inputMin.value);
+			sec = parseInt(inputSec.value);
+		}
+
+		addEventListener("load", function () {
+			init();
+		});
+	</script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="left">
+			<select id="sel">
+				<option>팀 선택</option>
+			</select>
+			<div id="graphArea"></div>
+		</div>
+		<div id="center">
+			<div id="content">스피드 퀴즈!!</div>
+			<div id="clockArea"></div>
+		</div>
+		<div class="right">
+			<h1>남은시간</h1>
+			<h1 id="time">03:00</h1><br>
+			<h1>점수</h1>
+			<h1 id="score_area">0 점</h1>
+			<div id="timerArea">
+				타이머 설정<br>
+				<input type="number" id="inputMin" placeholder="분" min=0 value=3> 분
+				<input type="number" id="inputSec" placeholder="초" min=0 value=0> 초
+			</div>
+			<div id="buttonArea">
+				<button onClick="execute()" id="bt_execute">Start</button>
+				<button onClick="reLoadWrapper()">ReLoad</button>
+				<button onClick="next()">정답</button>
+				<button onClick="pass()">Pass</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

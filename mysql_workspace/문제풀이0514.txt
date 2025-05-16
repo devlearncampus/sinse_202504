@@ -1,4 +1,7 @@
 1번답) 
+
+소속된 사원수가 5명 이상인 부서의 부서번호, 소속 사원수를 출력하세요
+
 select d.deptno,count(empno) 
 from emp e, dept d
 where e.deptno=d.deptno
@@ -6,10 +9,11 @@ group by d.deptno
 having count(empno)> 5
 
 
-2번답) 
+
+2번답)  SMITH가 소속된 부서의 총 사원수를 출력하세요
 select count(*) from emp where deptno=(select deptno from emp where ename='SMITH')
 
-3번답) 
+3번답)  SMITH 가 소속된 부서의 총 사원 수보다, 소속 사원 수가 더 많은 부서의 부서번호, 부서명, 부서위치를 출력하세요
 -- 각 부서별 사원 수를 구하되, SMITH가 속한 부서의 사원 수보다 사원수가 많은 부서
 SELECT DEPTNO, DNAME, LOC 
 FROM DEPT 
@@ -22,21 +26,21 @@ GROUP BY D.DEPTNO HAVING COUNT(EMPNO) > (
 	)
 )
 
-4번답) 
+4번답) FORD 보다 입사일이 늦은 사원의 사원번호, 사원명, 입사일, 부서번호, 부서명, 부서위치를 출력하되, 입사일이 빠른 순서대로 정렬하세요 
 SELECT EMPNO, ENAME, HIREDATE, D.DEPTNO,DNAME,LOC
 FROM EMP E, DEPT D
 WHERE E.DEPTNO=D.DEPTNO
 AND HIREDATE > (SELECT HIREDATE FROM EMP WHERE ENAME='FORD')
 ORDER BY HIREDATE ASC
 
-5번답) 
+5번답)  부서별 소속 사원수를 출력하되, 소속 사원수가 없는 경우는 0으로 처리하세요
 SELECT COUNT(EMPNO), D.DEPTNO
 FROM EMP E RIGHT OUTER JOIN DEPT D
 ON E.DEPTNO=D.DEPTNO
 GROUP BY D.DEPTNO
 
 
-6번답) 
+6번답) 부서번호, 부서명, 위치, 소속 사원번호, 소속 사원명을 출력하되, 사원이 소속되지 않은 부서까지도 포함하세요( 이 경우 사원정보는 null 로출력)
 SELECT D.DEPTNO, DNAME, LOC, EMPNO, ENAME
 FROM EMP E RIGHT OUTER JOIN DEPT D 
 ON E.DEPTNO=D.DEPTNO

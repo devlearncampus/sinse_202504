@@ -77,6 +77,7 @@
         //아래의 구글 스크립트에 의해, 구글 맵이 로드가 완료되는 시점에, 
         //개발자가 미리 정의해놓은 함수를 호출해줌(콜백 방식)
         function initMap(){
+            console.log("구글맵 로드 완료");
             //맵에 적용할 속성
             let mapProp= {
                 center:new google.maps.LatLng(37.51113, 127.0541),
@@ -221,7 +222,7 @@
         }
 
         addEventListener("load", function(){
-
+            console.log("html 로드 완료");
 
             //대표 사진 파일 선택했을때..
             document.getElementById("profile").addEventListener("change", function(e){
@@ -231,15 +232,15 @@
             document.querySelector("#aside_regist :nth-child(7)").addEventListener("click", function(){
                 regist();
             });
-
+            
             document.querySelector("#aside_regist :nth-child(8)").addEventListener("click", function(){
                 batchRegist();
             });
-
+            
             document.querySelector("#aside_regist :nth-child(9)").addEventListener("click", function(){
                 getList();
             });
-
+            
         });
         
         </script>
@@ -266,8 +267,9 @@
         </div>
         <div id="content">n</div>
         <div id="aside_detail">n</div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0B4ZNwP9dAQCFmKZTV6uNyodt9EXkfA&callback=initMap"></script>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0B4ZNwP9dAQCFmKZTV6uNyodt9EXkfA&callback=initMap"></script>
+    
     
 </body>
 </html>
