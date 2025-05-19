@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="Cell.js"></script>
+    <script>
+        
+        let currentYear; //유저가 현재 보고있는 연도
+        let currentMonth;//유저가 현재 보고있는 월
+
+        //JavaScript는 C,java,C# 등 대부분의 프로그래밍 언어가 배열 선언 시 정적배열을 원칙으로
+        //하는 원칙이 적용되지 않음...원칙: 배열은 생성 시 그 크기를 고정하지 않으면 안됨!
+        let cellArray=Array.from({length:6}, ()=>Array(7).fill(0));
+
+        /*---------------------------------------------------
+        제목 출력 함수 (로드 시점, 이전, 다음 버튼 누를때도 수시로 사용..)
+        ---------------------------------------------------*/
+        function printTitle(){
+            document.querySelector("#header h2").innerText=`${currentYear}년 ${currentMonth+1}월`;
+        }
+
+        /*---------------------------------------------------
+        해당 월의 시작 요일 반환하는 함수
+        ---------------------------------------------------*/
+        function getStartDay(year, month){
+            //날짜를 1일로 무조건 조작한 후, 무슨 요일인지 반환받으면 됨 
+            let d = new Date(year, month, 1); 
+            return d.getDay();//요일 반환
+        }
+
+        /*---------------------------------------------------
+        해당 월의 마지막날을 반환하는 함수
+        ---------------------------------------------------*/
+        function getLastDate(year, month){
+            let d=new Date(year, month+1, 0);
+            return d.getDate();
+        }
+
+
+        /*---------------------------------------------------
+        해당 년, 월의 달력의 숫자 출력
+        ---------------------------------------------------*/
+        function printNum(){
+            //총 42개의 셀을 대상으로 날짜를 출력하되, 단 1일은 해당 월의 시작요일부터
+            //출력...또한 마지막일은 해당월의 마지막날에 도달하면 멈춰야 함.
+            let index=0; //셀의 순번
+            let date=0; //출력될 실제 날짜
+
+            for(let i=0; i<6;i++){
+                for(let a=0;a<7;a++){
+                    //index값이 시작요일도달하게 되면...해당월의 마지막일까지만...
+                    if(index>=getStartDay(currentYear,currentMonth) && date <getLastDate(currentYear, currentMonth) ){
+                        date++;
+                        cellArray[i][a].setDate(currentYear, currentMonth, date);
+                    }
+                    index++;
+                }
+            }
+        }
+
+
+        /*---------------------------------------------------
+        로드 시점 뿐 아니라, 다음버튼, 이전 버튼에 의해서도 currentYear, currentMonth
+        구해야 하므로, 코드가 중복되기 때문에 함수로 빼놓자 
+        ---------------------------------------------------*/
+        function getCurrentTime(year, month){ 
+            //0이하가 되면 연도 자동이전 년도 처리, 11이 넘어가면 연도도 자동계산
+            let d = new Date(year, month);
+            currentYear=d.getFullYear();
+            currentMonth=d.getMonth();
+        }
+
+
+        //총 42개의 셀을 생성하자
+        function createCell(){
+            let content=document.getElementById("content");
+
+            for(let i=0;i<6;i++){
+                for(let a=0;a<7;a++){
+                    cellArray[i][a]=new Cell(content, a*100, i*100, 100,100,"lightgray", "gray", 0);
+                }
+            }
+            
+        }
+
+        /*---------------------------------------------------
+        기존 셀의 그래픽 초기화
+        ---------------------------------------------------*/
+        function clearCell(){
+            for(let i=0;i<6;i++){
+                for(let a=0;a<7;a++){
+                    //1) div에 출력된 모든 텍스트 지우기
+                    cellArray[i][a].numDiv.innerText="";
+                    cellArray[i][a].titleDiv.innerText="";
+                    
+                    //2) 등록된 아이콘이 있으면 제거 (remove)
+                }
+            }
+        }
+
+
+        /*---------------------------------------------------
+        이전 달 출력 
+        ---------------------------------------------------*/
+        function prev(){
+            getCurrentTime(currentYear, currentMonth-1);
+            printTitle();//달력 제목 출력
+            clearCell();//기존에 출력된 날짜 및 아이콘 등 깨끗이 지우기
+            printNum();//기존 셀에 날짜 출력
+        }
+
+        /*---------------------------------------------------
+        다음 달 출력 
+        ---------------------------------------------------*/
+        function next(){
+            getCurrentTime(currentYear, currentMonth+1);
+            printTitle();//달력 제목 출력
+            clearCell();//기존에 출력된 날짜 및 아이콘 등 깨끗이 지우기
+            printNum();//기존 셀에 날짜 출력
+        }
+
+        //숨겨져 있던, 대화창을 띄우되, 그 위치는 지금 클릭한 바로 그 셀의 x,y를
+        //따라가야함..
+        function openDialog(){
+            let dialog=document.getElementById("dialog");
+            dialog.style.display="block";  // none
+        }
+
+        //화살표 함수의 사용목적:코드의 간결성
+        //화살표 함수는 this를 가질 수 없기 때문에 화살표 함수안에서 사용되는 this는
+        //상위 스코프를 가리킴 
+        addEventListener("load", ()=>{
+            let d = new Date();
+            getCurrentTime(d.getFullYear(), d.getMonth());//현재 날짜 구하기
+            printTitle(); //달력 제목 출력
+            createCell(); //달력셀 만들기 
+            printNum(); //달력의 날짜 출력
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="info"></div>
+        <div id="header">
+            <a href="javascript:prev()">이전</a>
+            <h2></h2>
+            <a href="javascript:next()">다음</a>
+        </div>
+        <div id="days"></div>
+        <div id="content">
+            <div id="dialog">
+                <div>
+                    <input type="text" placeholder="제목입력.." id="t_title">                    
+                </div>
+                <div>
+                    <textarea placeholder="내용 입력..." id="t_detail"></textarea>
+                </div>
+                <div>
+                    <button id="bt_regist">등록</button>
+                    <button id="bt_close">닫기</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

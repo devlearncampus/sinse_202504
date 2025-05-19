@@ -1,0 +1,53 @@
+#wrapper{
+    width: 700px;
+    height:690px;
+    margin:auto;
+}
+#info{
+    height: 60px;
+    background-color: blanchedalmond;
+}
+#header{
+    height: 50px;
+    background-color: aqua;
+    line-height: 50px;
+    text-align: center;
+}
+#header h2{
+    display: inline-block;
+    margin: 0px 5px;
+}
+#header a{
+    text-decoration: none;
+}
+#days{
+    height: 40px;
+    background-color: rgb(192, 192, 92);
+}
+#content{
+    height: 600px;
+    background-color: beige;     
+    position: relative;       
+}
+#dialog{
+    width: 220px;
+    height: 240px;
+    border-radius: 10px;
+    background-color: bisque;
+    position: absolute; /*content div에 다른 셀들과 공존해야 하므로..*/
+    z-index:50; /*z축값이 클수록 위로 올라옴*/   
+    display: none;
+    text-align: center;
+}
+#dialog input, textarea{
+    border:1px solid #ccc;
+    margin:1px;
+}
+#dialog input{
+    width: 96%;
+    height: 27px;
+}
+#dialog textarea{
+    width: 96%;
+    height: 170px;
+}

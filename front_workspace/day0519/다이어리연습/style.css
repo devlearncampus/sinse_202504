@@ -1,0 +1,61 @@
+        #wrapper{
+            width: 700px;
+            height: 690px;
+            margin: auto;
+            position: relative;
+        }       
+        #dialog{
+            width: 220px;
+            height: 240px;
+            border-radius: 10px;
+            background-color:orange;
+            position: absolute;
+            z-index: 50;
+            display:none;
+            text-align: center;
+        } 
+        #dialog input, textarea{
+            border:1px solid #ccc;
+            margin:1px;
+        }
+        #dialog input{
+            width: 96%;
+            height:27px;
+        }
+        #dialog textarea{
+            width: 96%;
+            height: 170px;
+        }
+        #header{
+            height: 50px;
+            background-color: aqua;
+            line-height: 50px;
+            text-align: center;
+        }
+        #header h2{
+            margin: 0px 0px;
+            display: inline-block;
+        }
+        #header a{
+            text-decoration: none;
+            margin: 0px 20px;
+        }
+        #header a:hover{
+            color:red;
+            font-weight: bold;
+        }
+        
+        #header button{
+            float:right;
+            
+        }
+
+        #days{
+            height: 40px;
+            background-color: beige;
+        }
+        #content{
+            height: 600px;
+            background-color: burlywood;
+            position: relative;
+        }
