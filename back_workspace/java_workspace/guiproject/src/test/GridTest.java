@@ -10,11 +10,12 @@ public class GridTest{
 		
 		for(int i=0;i<3;i++){ //층수
 			for(int a=0;a<4;a++){//호수
-				Button bt=new Button(i+"층 "+a+"호");
+				f.add((new Button(i+"층"+a+"호")));
+				//Button bt=new Button(i+"층 "+a+"호");
 				
 				//Color 클래스가 보유한 YELLOW 상수(static)
-				bt.setBackground(Color.YELLOW);
-				f.add(bt);
+				//bt.setBackground(Color.YELLOW);
+				//f.add(bt);
 			}
 		}
 		
