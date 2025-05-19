@@ -1,10 +1,10 @@
 class Cell{
-    
     constructor(container, x, y, width, height, bg,borderColor, date){
         //[다이어리 관련 내용]
         this.year;
         this.month;
         this.date=date;
+        this.icon;
 
         //[UI 관련 내용]
         this.container=container;
@@ -57,8 +57,10 @@ class Cell{
         this.container.appendChild(this.div);
 
         //현재 이 셀에 클릭 이벤트 구현 
-        this.div.addEventListener("click", function(){
-            openDialog();
+        //화살표 함수는 this 를 가질 수 없으므로, 바깥쪽 상위 스코프인 객체를
+        //가리키려면 화살표 함수를 사용하겠음
+        this.div.addEventListener("click", ()=>{
+            openDialog(this);
         });
     }
 
@@ -70,5 +72,15 @@ class Cell{
 
         //렌더링 처리 
         this.numDiv.innerText=date;
+    }
+
+    //셀이 자신이 보유한 아이콘을 그리기
+    renderIcon(src, width){// 어떤 이미지를 원하는지는 호출자가 결정...
+        this.icon=document.createElement("img");
+        this.icon.src=src;
+        
+        //이미지의 크기 조정 
+        this.icon.style.width=width+"px";
+        this.iconDiv.appendChild(this.icon);
     }
 }   

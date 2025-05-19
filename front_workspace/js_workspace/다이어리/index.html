@@ -10,6 +10,9 @@
         
         let currentYear; //유저가 현재 보고있는 연도
         let currentMonth;//유저가 현재 보고있는 월
+        let currentCell; // 유저가 현재 선택한 셀(모든게 다 들어있음...)
+        let diaryArray=[]; //모든 다이어리 객체들을 누적해놓자..
+                                   //원래는 DB에 누적해야 하지만, js 는 db연동 불가
 
         //JavaScript는 C,java,C# 등 대부분의 프로그래밍 언어가 배열 선언 시 정적배열을 원칙으로
         //하는 원칙이 적용되지 않음...원칙: 배열은 생성 시 그 크기를 고정하지 않으면 안됨!
@@ -122,11 +125,67 @@
             printNum();//기존 셀에 날짜 출력
         }
 
-        //숨겨져 있던, 대화창을 띄우되, 그 위치는 지금 클릭한 바로 그 셀의 x,y를
-        //따라가야함..
-        function openDialog(){
+        /*---------------------------------------------------
+        숨겨져 있던, 대화창을 띄우되, 그 위치는 지금 클릭한 바로 그 셀의 x,y를 따라가야함..
+        ---------------------------------------------------*/
+        function openDialog(obj){
+            //현재 셀에 대한 전역변수인 currentCell에 obj를 보관해놓자
+            currentCell=obj;
+
             let dialog=document.getElementById("dialog");
             dialog.style.display="block";  // none
+
+            //팝업의 위치는 사용자가 클릭한 셀의 좌표와 일치시키자 
+            console.log(`넘겨받은 셀의 x=${obj.x},y=${obj.y}`);
+            
+            //넘겨받은x,y를 이용하여 새창의 위치를 결정짓자 
+            dialog.style.position="absolute";
+            dialog.style.left=obj.x+"px";
+            dialog.style.top=obj.y+"px";
+        }
+
+        /*---------------------------------------------------
+        새창 닫기
+        ---------------------------------------------------*/
+        function closeDialog(){
+            document.getElementById("dialog").style.display="none";
+            document.getElementById("t_title").value="";
+            document.getElementById("t_detail").value="";
+        }
+
+        /*---------------------------------------------------
+        해당 년도와 월, 일에 해당하는 기록을 1건 작성
+        ---------------------------------------------------*/
+        function regist(){
+            //아래의 총 6개의 데이터가 모여서 다이어리 한건이 구성되는 것이므로, 
+            //개발자는 저 데이터를 담기위한 용도로 2가지를 고민해야 함 
+            //1) 배열(직관성이 떨어짐-0번째까 월인지, 제목인지 헷갈리기때문) 
+            // 2) 객체(클래스 VS 객체리터럴)
+            
+            //년, 월, 일
+            //글의 제목 
+            //글의 내용 
+            //사용할 아이콘 
+            let diary={
+                year:currentYear, 
+                month:currentMonth,
+                date:currentCell.date,
+                title:document.getElementById("t_title").value,
+                icon:"./images/pencil.png",
+                detail:document.getElementById("t_detail").value
+            }
+            
+            //입력한 정보를 현재 셀에 반영 , 데이터를 랜더링..
+            currentCell.titleDiv.innerText=diary.title;//제목 나오기 
+            
+            //아이콘 나오기
+            currentCell.renderIcon(diary.icon, 25);
+            
+            //배열에 객체 1건 푸시
+            diaryArray.push(diary);
+
+            //등록 후 팝업 닫기 
+            closeDialog();
         }
 
         //화살표 함수의 사용목적:코드의 간결성
@@ -138,6 +197,22 @@
             printTitle(); //달력 제목 출력
             createCell(); //달력셀 만들기 
             printNum(); //달력의 날짜 출력
+
+            //등록 이벤트 구현 
+            document.getElementById("bt_regist").addEventListener("click", ()=>{
+                regist();
+            });
+
+            //새창 닫기 이벤트 구현 
+            document.getElementById("bt_close").addEventListener("click", ()=>{
+                closeDialog();
+            });
+
+            document.body.addEventListener("keyup", function(e){
+                if(e.keyCode==27){
+                    closeDialog();
+                }
+            });
         });
     </script>
 </head>
