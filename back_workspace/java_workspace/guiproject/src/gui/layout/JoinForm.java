@@ -75,8 +75,27 @@ class JoinForm extends Frame{
 		
 		add(p_south, BorderLayout.SOUTH); //남쪽에 패널 부착 
 		
+		MemberListener memberListener=new MemberListener(this ,bt_login, bt_join);
+		
+		bt_login.addActionListener(memberListener);//로그인 버튼과 리스너 연결 
+		bt_join.addActionListener(memberListener);//가입 버튼과 리스너 연결
+		
 		setSize(300, 200);	
 		setVisible(true);
+	}
+	
+	//회원가입과 관련된 컴포넌트가 전부 회원가입 폼 클래스에 존재하므로
+	//폼에 대한 유효성 체크 또한 가입폼 클래스에 진행하는게 더 효율적..
+	public void checkForm(){
+		//아이디를 입력하지 않은 경우. 욕!!!
+		//TextField 의 값을 얻는 방법에 대해 조사
+		if(t_id.getText().length() <1){ 
+			System.out.println("아이디를 입력하세요");			
+		}else if(t_password.getText().length() <1){
+			System.out.println("비밀번호를 입력하세요");			
+		}else if(t_name.getText().length() <1){
+			System.out.println("이름을 입력하세요");			
+		}
 	}
 	
 	public static void main(String[] args) {
