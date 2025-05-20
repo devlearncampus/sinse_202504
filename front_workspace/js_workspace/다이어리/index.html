@@ -42,6 +42,25 @@
             return d.getDate();
         }
 
+        /*---------------------------------------------------
+        달력과 다이어리 비교하여 렌더링 처리
+        ---------------------------------------------------*/
+        function checkData(cell, year, month, date){
+            //다이어리에 등록된 데이터와 현재 각날짜와 비교하여, 년,월,일이 같은 경우는 
+            //다이어리에 등록된 날짜로 간주한다.. 제목 출력, 아이콘 출력 
+            for(let k=0; k<diaryArray.length;k++){
+                let diary=diaryArray[k];//한건의 다이어리 추출    
+                if(diary.year==year && diary.month==month && diary.date==date ){
+                    //다이어리 제목 출력 
+                    cell.titleDiv.innerText=diary.title;
+
+                    //아이콘 출력  
+                    console.log(diary.icon);      
+                   cell.renderIcon(diary.icon, 25);
+                }                                                    
+            }            
+        }
+
 
         /*---------------------------------------------------
         해당 년, 월의 달력의 숫자 출력
@@ -58,6 +77,8 @@
                     if(index>=getStartDay(currentYear,currentMonth) && date <getLastDate(currentYear, currentMonth) ){
                         date++;
                         cellArray[i][a].setDate(currentYear, currentMonth, date);
+
+                        checkData(cellArray[i][a], currentYear, currentMonth, date   );//매개변수 활용하여
                     }
                     index++;
                 }
@@ -100,6 +121,9 @@
                     cellArray[i][a].titleDiv.innerText="";
                     
                     //2) 등록된 아이콘이 있으면 제거 (remove)
+                    if( cellArray[i][a].iconDiv.children.length>0){//아이콘 발견~
+                        cellArray[i][a].iconDiv.removeChild(cellArray[i][a].icon);
+                    }
                 }
             }
         }
@@ -160,7 +184,7 @@
             //아래의 총 6개의 데이터가 모여서 다이어리 한건이 구성되는 것이므로, 
             //개발자는 저 데이터를 담기위한 용도로 2가지를 고민해야 함 
             //1) 배열(직관성이 떨어짐-0번째까 월인지, 제목인지 헷갈리기때문) 
-            // 2) 객체(클래스 VS 객체리터럴)
+            //2) 객체(클래스 VS 객체리터럴)
             
             //년, 월, 일
             //글의 제목 
@@ -213,12 +237,45 @@
                     closeDialog();
                 }
             });
+
+            //이미지를 클릭하면, 파일탐색기를 강제 클릭시키자 
+            document.querySelector("#info img").addEventListener("click", ()=>{
+                //강제 클릭
+                document.getElementById("fileChooser").click();//프로그래밍 적 클릭
+
+                //유저가 파일 탐색기에서 파일을 선택한 순간에....파일 읽어들이자
+                document.getElementById("fileChooser").addEventListener("change", (e)=>{
+                    //console.log(e);
+                    
+                    let file = e.target.files[0];//e.target.files 라는 유사배열의 0번째 파일 
+
+                    //파일 읽어들이는 객체 사용 
+                    let reader = new FileReader();
+                    reader.onload=function(data){
+                        //읽어들인 데이터는 단지 js 객체 표기를 차용한 것뿐이므로
+                        //단순한 문자열에 불과하다. 따라서 객체처럼 .찍고 접근불가
+                        //해결책) 실제 객체화 시켜야 한다..(JSON 내장객체 이용)
+                        console.log(data.target.result);
+                        let obj=JSON.parse(data.target.result);//해석 후 객체반환
+                        diaryArray=obj.diaryList;    
+                       
+                        printTitle();
+                        clearCell(); //기존의 div에 기록된 데이터 삭제 
+                        printNum();
+                    }
+                    reader.readAsText(file);
+                });
+
+            });
         });
     </script>
 </head>
 <body>
     <div id="wrapper">
-        <div id="info"></div>
+        <div id="info">
+            <input type="file" style="display: none;" id="fileChooser">
+            <img src="./images/clip.png" alt="파일첨부" style="width: 50px;">
+        </div>
         <div id="header">
             <a href="javascript:prev()">이전</a>
             <h2></h2>
