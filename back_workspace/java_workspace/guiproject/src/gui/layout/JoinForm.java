@@ -10,6 +10,7 @@ import java.awt.Button;
 import java.awt.TextField;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Color;
 
 class JoinForm extends Frame{
 	//필요한 재료들을 has a 관계로 보유하자 
@@ -29,14 +30,19 @@ class JoinForm extends Frame{
 		la_title =new Label("회원가입");
 		p_center = new Panel();
 		la_id = new Label("ID");
-		t_id = new TextField(20);
+		t_id = new TextField();
 		la_password = new Label("Password");
-		t_password = new TextField(20);
+		t_password = new TextField();
 		la_name= new Label("Name");
-		t_name = new TextField(20);
+		t_name = new TextField();
 		p_south = new Panel();
 		bt_login = new Button("Login");
 		bt_join = new Button("Join");
+		
+		//스타일 적용 
+		la_title.setBackground(Color.YELLOW);
+		
+		
 		
 		//조립 
 		//제목을 북쪽에 부착 
