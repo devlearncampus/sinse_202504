@@ -9,6 +9,7 @@
     <script src="./Brick.js"></script>
     <script src="./Hero.js"></script>
     <script src="./map.js"></script>
+    <script src="../lib/common.js"></script>
     <script>
         let level=0;
         //벽돌과 주인공의 충돌 검사를 위해서는 벽돌은 가리킬수 있는 방법이 필요하므로,
@@ -38,7 +39,10 @@
 
         function gameLoop(){
             //모든 게임에 등장하는 객체들에 대한 tick(), render()...호출
-            console.log("gameLoop() called...");
+            //console.log("gameLoop() called...");
+            hero.tick();
+            hero.render();
+
         } 
 
 
@@ -65,6 +69,15 @@
                     case 38:hero.velY=-speed;break; //top
                     case 39:hero.velX=speed;break; //right
                     case 40:hero.velY=speed;break; //down
+                }
+            });
+
+            addEventListener("keyup", function(e){
+                switch(e.keyCode){
+                    case 37:hero.velX=0;break; //left
+                    case 38:hero.velY=0;break; //top
+                    case 39:hero.velX=0;break; //right
+                    case 40:hero.velY=0;break; //down
                 }
             });
 
