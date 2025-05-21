@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./lib.js"></script>
+    <script src="./GameObject.js"></script>
+    <script src="./Sensor.js"></script>
+    <script src="./UpSensor.js"></script>
+    <script src="./DownSensor.js"></script>
+    <script src="./RightSensor.js"></script>
+    <script src="./LeftSensor.js"></script>
+    <script src="./Hero.js"></script>
+    <script src="./Brick.js"></script>
+    <script src="./map.js"></script>
+    <script>
+        let level=0;
+        //let brickArray=[];
+        let brickArray=Array.from({length:14}, ()=>Array(28).fill(0));
+        let hero;
+        let st=null;
+        let heroSpeed=2;
+
+        function createMap(level){
+            let map = maps[level];//사용할 이차원 구조의 맵 
+
+            for(let i=0;i<map.length;i++){
+                let arr=[];
+                for(let a=0;a<map[i].length;a++){
+                    if(map[i][a]==1){
+                        let brick = new Brick(document.getElementById("stage"),a*50, i*50,50,50,0,0,"lightgreen",1,"green");
+                        arr.push(brick);
+                    }else if(map[i][a]==9){
+                        hero = new Hero(document.getElementById("stage"), a*50, i*50, 40,40,0,0,"red",0,"");
+                    }
+                }
+                brickArray.push(arr);
+            }
+        }
+
+        function gameLoop(){
+            //console.log("gameLoop....");
+            hero.tick();
+            hero.render();
+        }
+        
+        function play(){
+            if(st==null){
+                st = setInterval(gameLoop, 10);
+                document.getElementById("stage").style.background="yellow";
+            }else{
+                clearTimeout(st);
+                st=null;
+                document.getElementById("stage").style.background="lightgray";
+            }
+        }
+
+        addEventListener("load",()=>{
+            createMap(level);
+
+            addEventListener("keydown", function(e){
+                switch(e.keyCode){
+                    case 27:play();break;
+                    case 37:hero.velX=-heroSpeed;break;
+                    case 38:hero.velY=-heroSpeed;break;
+                    case 39:hero.velX=heroSpeed;break;
+                    case 40:hero.velY=heroSpeed;break;
+                }
+            });
+
+            addEventListener("keyup", function(e){
+                switch(e.keyCode){
+                    case 37:hero.velX=0;break;
+                    case 38:hero.velY=0;break;
+                    case 39:hero.velX=0;break;
+                    case 40:hero.velY=0;break;
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="stage"></div>    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
