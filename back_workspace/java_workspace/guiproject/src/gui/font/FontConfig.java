@@ -6,6 +6,7 @@ import java.awt.TextField;
 import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -40,7 +41,8 @@ public class FontConfig extends Frame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		myWin.area.setFont(new Font(null, -1, 40));		
+		myWin.area.setFont(new Font(null, -1, 40));	
+		myWin.area
 	}
 }
 
