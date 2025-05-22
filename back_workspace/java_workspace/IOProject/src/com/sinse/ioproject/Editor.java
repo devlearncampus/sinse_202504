@@ -46,7 +46,8 @@ public class Editor extends JFrame implements ActionListener{
 		for(int i=0;i<item.length;i++) {
 			item[i]=new JMenuItem(itemTitle[i]);
 		}
-		chooser = new JFileChooser();
+		area = new JTextArea();
+		chooser = new JFileChooser("C:/lecture_workspace/back_workspace/java_workspace");
 		
 		//메뉴 아이템들을 '파일' 메뉴에 부착
 		for(int i=0;i<item.length;i++) {
@@ -61,6 +62,7 @@ public class Editor extends JFrame implements ActionListener{
 		
 		//바부착 
 		setJMenuBar(bar);
+		add(area);
 		
 		item[2].addActionListener(this);//열기 버튼에 이벤트연결
 		item[item.length-1].addActionListener(this);//exit 버튼에 이벤트 연결 
@@ -89,13 +91,23 @@ public class Editor extends JFrame implements ActionListener{
 			
 			while(true) {
 				data=fis.read(); //1byte 읽기, Wrapper 클래스 고려...
-				area.append(한글자를 스트링); //  'A' --> "A"
-			}
-			
+				// (char)data    106 --> 'J'  "J"
+				//char c = (char)data;
+				if(data==-1)break;
+				area.append(Character.toString((char)data)); //  'A' --> "A"
+			}			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			if(fis !=null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 	}
