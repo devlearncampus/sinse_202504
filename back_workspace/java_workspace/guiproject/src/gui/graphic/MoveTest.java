@@ -8,12 +8,12 @@ import java.awt.BorderLayout;
 public class MoveTest extends JFrame{
 	JPanel p_north;
 	JButton bt;
-	JPanel p_center;
+	MovePanel p_center;
 	
 	public MoveTest(){
 		p_north = new JPanel();
 		bt = new JButton("이동");
-		p_center = new JPanel();
+		p_center = new MovePanel();
 		
 		p_north.add(bt);
 		add(p_north, BorderLayout.NORTH);
